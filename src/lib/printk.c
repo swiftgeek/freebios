@@ -6,7 +6,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: printk.c,v 1.7 2001/11/27 19:29:56 ebiederm Exp $";
+static char rcsid[] = "$Id: printk.c,v 1.8 2002/12/03 16:12:14 rminnich Exp $";
 #endif
 
 //typedef void * va_list;
@@ -56,3 +56,22 @@ int do_printk(int msg_level, const char *fmt, ...)
 	return i;
 }
 
+#if (CONFIG_HEXDUMP == 1)
+void hexdump(char *name, unsigned char *buffer, int size)
+{
+	int i;
+
+	if (name)
+		printk_info("==== %s ====\n", name);
+	for(i = 0; i < size; i += 32) {
+		int j;
+		printk_info("%p:", buffer);
+		for(j = 0; j < 32; j++) {
+			printk_info("%02x ", *buffer++);
+		}
+		printk_info("\n");
+	}
+	printk_info("===\n");
+			
+}
+#endif
