@@ -22,7 +22,7 @@
  * Reference:
  *	4 MEgabit (512K x 8) SuperFlash EEPROM, SST28SF040 data sheet
  *
- * $Id: sst28sf040.c,v 1.2 2002/01/29 20:18:00 rminnich Exp $
+ * $Id: sst28sf040.c,v 1.3 2003/02/28 17:21:37 rminnich Exp $
  */
 
 #include "flash.h"
@@ -113,7 +113,7 @@ int probe_28sf040 (struct flashchip * flash)
 	*bios = RESET;
 	myusec_delay(10);
 
-	printf(__FUNCTION__ "id1 %d, id2 %d\n", id1, id2);
+	printf("%s: id1 0x%x, id2 0x%x\n", __FUNCTION__ , id1, id2);
 	if (id1 == flash->manufacture_id && id2 == flash->model_id)
 		return 1;
 

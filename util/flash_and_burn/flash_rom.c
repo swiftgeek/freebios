@@ -23,7 +23,7 @@
  *	1. SiS 630 Specification
  *	2. SiS 950 Specification
  *
- * $Id: flash_rom.c,v 1.15 2003/02/12 18:11:42 rminnich Exp $
+ * $Id: flash_rom.c,v 1.16 2003/02/28 17:21:37 rminnich Exp $
  */
 
 #include <errno.h>
@@ -180,7 +180,7 @@ struct flashchip * probe_flash(struct flashchip * flash)
     return NULL;
 }
 
-int verify_flash (struct flashchip * flash, char * buf)
+int verify_flash (struct flashchip * flash, char * buf, int verbose)
 {
     int i = 0;
     int total_size = flash->total_size *1024;
@@ -188,13 +188,19 @@ int verify_flash (struct flashchip * flash, char * buf)
 
     printf("Verifying address: ");
     while (i++ < total_size) {
-	printf("0x%08x", i);
+	if (verbose) 
+		printf("0x%08x", i);
 	if (*(bios+i) != *(buf+i)) {
+		printf("FAILED\n");
 	    return 0;
 	}
-	printf("\b\b\b\b\b\b\b\b\b\b");
+	if (verbose) 
+		printf("\b\b\b\b\b\b\b\b\b\b");
     }
-    printf("\n");
+    if (verbose)
+    	printf("\n");
+    else
+	printf("VERIFIED\n");
     return 1;
 }
 
@@ -211,7 +217,7 @@ myusec_calibrate_delay()
 	struct timeval start, end;
 	int ok = 0;
 
-	fprintf(stderr, "Setting up microsecond timing loop\n");
+	printf("Setting up microsecond timing loop\n");
 	while (! ok) {
 		//fprintf(stderr, "Try %d\n", count);
 		gettimeofday(&start, 0);
@@ -333,6 +339,6 @@ main (int argc, char * argv[])
     printf("OK, calibrated, now do the deed\n");
 
     flash->write (flash, buf);
-    verify_flash (flash, buf);
+    verify_flash (flash, buf, /* verbose = */ 0);
     return 0;
 }

@@ -21,7 +21,7 @@
  *
  * Reference: http://www.intel.com/design/chipsets/datashts/290658.htm
  *
- * $Id: 82802ab.c,v 1.1 2002/09/06 16:58:13 rminnich Exp $
+ * $Id: 82802ab.c,v 1.2 2003/02/28 17:21:35 rminnich Exp $
  */
 
 #include <errno.h>
@@ -73,7 +73,8 @@ int probe_82802ab (struct flashchip * flash)
 #endif
 	myusec_delay(10);
 
-	printf(__FUNCTION__ "id1 %d, id2 %d\n", id1, id2);
+	printf("%s: id1 0x%x, id2 0x%x\n", __FUNCTION__, id1, id2);	
+
 	if (id1 == flash->manufacture_id && id2 == flash->model_id) {
 		size_t size = flash->total_size * 1024;
 		// we need to mmap the write-protect space. 
@@ -129,12 +130,12 @@ int erase_82802ab_block(struct flashchip *flash, int offset)
 
 	// clear status register
 	*bios = 0x50;
-	printf("Erase at %p\n", bios);
+	//printf("Erase at %p\n", bios);
 	// clear write protect
-	printf("write protect is at %p\n", (wrprotect));
-	printf("write protect is 0x%x\n", *(wrprotect));
+	//printf("write protect is at %p\n", (wrprotect));
+	//printf("write protect is 0x%x\n", *(wrprotect));
 	*(wrprotect) = 0;
-	printf("write protect is 0x%x\n", *(wrprotect));
+	//printf("write protect is 0x%x\n", *(wrprotect));
 
 	// now start it
 	*(volatile unsigned char *) (bios) = 0x20;
@@ -142,7 +143,7 @@ int erase_82802ab_block(struct flashchip *flash, int offset)
 	myusec_delay(10);
 	// now let's see what the register is
 	status = wait_82802ab(flash->virt_addr);
-	print_82802ab_status(status);
+	//print_82802ab_status(status);
 	printf("DONE BLOCK 0x%x\n", offset);
 }
 int erase_82802ab (struct flashchip * flash)

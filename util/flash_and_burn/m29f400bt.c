@@ -21,7 +21,7 @@
  *
  * Reference:
  *
- * $Id: m29f400bt.c,v 1.1 2002/06/11 19:15:55 rminnich Exp $
+ * $Id: m29f400bt.c,v 1.2 2003/02/28 17:21:37 rminnich Exp $
  */
 
 #include "flash.h"
@@ -46,8 +46,10 @@ int probe_m29f400bt (struct flashchip * flash)
 	*(volatile char *) (bios + 0xAAA) = 0xF0;
 
 	myusec_delay(10);
-	
-	printf(__FUNCTION__ " id1 %x, id2 %x\n", id1, id2);
+
+	printf("%s: id1 0x%x, id2 0x%x\n", __FUNCTION__, id1, id2);	
+
+
 	if (id1 == flash->manufacture_id && id2 == flash->model_id)
 		return 1;
 
