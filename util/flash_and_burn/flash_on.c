@@ -24,7 +24,7 @@
  *	1. SiS 630 Specification
  *	2. SiS 950 Specification
  *
- * $Id: flash_on.c,v 1.1 2002/01/29 18:21:41 rminnich Exp $
+ * $Id: flash_on.c,v 1.2 2003/09/12 22:41:53 rminnich Exp $
  */
 
 #include <errno.h>
@@ -33,8 +33,9 @@
 #include <sys/io.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-main()
+int main()
 {
 	char b;
 
@@ -71,4 +72,6 @@ main()
 
 	outb(0x02, 0x2e);
 	outb(0x02, 0x2f);
+
+	return(0);
 }
