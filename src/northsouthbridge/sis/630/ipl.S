@@ -25,7 +25,7 @@
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium
  *
- * $Id: ipl.S,v 1.7 2000/11/28 01:21:02 ollie Exp $
+ * $Id: ipl.S,v 1.8 2000/11/30 03:46:37 ollie Exp $
  */
 
 #include "ipl.h"
@@ -212,7 +212,7 @@ sis630ipl_start:
 	outb	%al, $0x2f
 
 	xorw	%sp, %sp			# clear %sp
-	xorw	%dx, %dx			# clear $dx, start of RAM
+	xorw	%dx, %dx			# clear %dx, start of RAM
 	movw	$0x800, %si			# point %si to CDSN Data area
 	movw	$0x1000, %di			# point %di to CDSN Control area
 	movw	$DOC_SPL_START_BLK, %bp		# start page of LinuxBIOS

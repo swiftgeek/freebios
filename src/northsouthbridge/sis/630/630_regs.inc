@@ -24,7 +24,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 630_regs.inc,v 1.1 2000/11/28 01:21:02 ollie Exp $
+ * $Id: 630_regs.inc,v 1.2 2000/11/30 03:46:37 ollie Exp $
  */
 
 northbridge_init_table:
@@ -36,7 +36,7 @@ northbridge_init_table:
 	.byte	0x07,	0x00	# 	
 	.byte	0x0D,	0x20	# Master Latency Timer = 32 PCI CLCK
 
-	/* SiS 630 specific registers. See SiS 630 Reconnaded Registers Setting */
+	/* SiS 630 specific registers. See SiS 630 Registers Recommended Setting */
 	
 	/* Host Control Interface */
 	.byte	0x50,	0x9C	#

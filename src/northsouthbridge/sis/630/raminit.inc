@@ -26,7 +26,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.2 2000/11/28 01:21:02 ollie Exp $
+ * $Id: raminit.inc,v 1.3 2000/11/30 03:46:37 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -55,7 +55,7 @@ write_northbridge_register:
 	movl	$NORTH_BRIDGE_BASE_ADDR, %edx
 
 write_common:
-	movl	%eax, %ebx			# Save %ax to %cx.
+	movl	%eax, %ebx			# Save %eax to %ebx.
 
 	movzbl	%bh, %eax			# add register address to
 	addl	%edx, %eax			# PCI base address
