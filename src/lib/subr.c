@@ -1,19 +1,20 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.3 2000/10/17 20:49:18 rminnich Exp $
+ * $Id: subr.c,v 1.4 2000/10/17 22:58:51 rminnich Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.3 2000/10/17 20:49:18 rminnich Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.4 2000/10/17 22:58:51 rminnich Exp $";
 #endif
 
 #include <cpu/p5/io.h>
 
 #include <cpu/p5/macros.h>
 #include <printk.h>
-#include <lbpci.h>
+#include <pci.h>
 #include <subr.h>
+#include <linux/asm-i386/msr.h>
 
 #ifdef SERIAL_CONSOLE
 #include <serial_subr.h>
