@@ -1,3 +1,25 @@
+/*
+This software and ancillary information (herein called SOFTWARE )
+called LinuxBIOS          is made available under the terms described
+here.  The SOFTWARE has been approved for release with associated
+LA-CC Number 00-34   .  Unless otherwise indicated, this SOFTWARE has
+been authored by an employee or employees of the University of
+California, operator of the Los Alamos National Laboratory under
+Contract No. W-7405-ENG-36 with the U.S. Department of Energy.  The
+U.S. Government has rights to use, reproduce, and distribute this
+SOFTWARE.  The public may copy, distribute, prepare derivative works
+and publicly display this SOFTWARE without charge, provided that this
+Notice and any statement of authorship are reproduced on all copies.
+Neither the Government nor the University makes any warranty, express
+or implied, or assumes any liability or responsibility for the use of
+this SOFTWARE.  If SOFTWARE is modified to produce derivative works,
+such modified SOFTWARE should be clearly marked, so as not to confuse
+it with the version available from LANL.
+ */
+/* Parts of this code Copyright 2000, Ron Minnich, Advanced Computing Lab, LANL
+ * rminnich@lanl.gov
+ * Modifications by Ronnie Liu of Acer Labs Inc. 
+ */
 #include <asm.h>
 #include <cpu/p5/macros.h>
 #define DOC_WIN_SEG		0xfe00
@@ -310,7 +332,7 @@ sizeram:
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.13 2001/03/05 16:03:02 rminnich Exp $
+ * $Id: ipl.S,v 1.14 2001/03/14 21:26:50 rminnich Exp $
  */
 #define DOC_WIN_SEG		0xfe00
 #define DOC_STACK		0x04000
