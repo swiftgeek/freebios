@@ -23,9 +23,10 @@
  *	1. SiS 630 Specification
  *	2. System Management Bus Specification Rev 1.1
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
- *	4. Booting From the DiskOnChip Millennium
+ *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
+ *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.12 2000/12/04 06:37:06 ollie Exp $
+ * $Id: ipl.S,v 1.13 2000/12/04 06:46:37 ollie Exp $
  */
 
 #include "ipl.h"
