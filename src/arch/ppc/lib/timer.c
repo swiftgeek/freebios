@@ -1,4 +1,4 @@
-/* $Id: timer.c,v 1.1 2003/04/15 18:29:11 rminnich Exp $ */
+/* $Id: timer.c,v 1.2 2003/06/06 14:44:13 jarrah Exp $ */
 /* Copyright 2000  AG Electronics Ltd. */
 /* This code is distributed without warranty under the GPL v2 (see COPYING) */
 
@@ -7,13 +7,13 @@
 
 unsigned get_hz(void)
 {
-	return bsp_clock_speed() >> 16;
+	return bsp_clock_speed();
 }
 
 unsigned ticks_since_boot(void)
 {
 	extern unsigned long long _timebase(void);
-	return (unsigned) (_timebase() >> 16);
+	return (unsigned) (_timebase());
 }
 
 void sleep_ticks(unsigned ticks)
