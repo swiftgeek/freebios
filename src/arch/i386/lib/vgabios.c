@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: vgabios.c,v 1.7 2003/05/22 12:59:58 aip Exp $";
+static char rcsid[] = "$Id: vgabios.c,v 1.8 2003/05/23 00:49:47 aip Exp $";
 #endif
 
 #include <pci.h>
@@ -63,7 +63,7 @@ static char rcsid[] = "$Id: vgabios.c,v 1.7 2003/05/22 12:59:58 aip Exp $";
  *  negligence or otherwise) arising in any way out of the use of this
  *  software, even if advised of the possibility of such damage.
  *
- *  $Id: vgabios.c,v 1.7 2003/05/22 12:59:58 aip Exp $
+ *  $Id: vgabios.c,v 1.8 2003/05/23 00:49:47 aip Exp $
  *--------------------------------------------------------------------*/
 #if (CONFIG_VGABIOS == 1)
 
@@ -164,7 +164,7 @@ do_vgabios(void)
 
 #ifdef VGABIOS_START
   // Use VGA BIOS blob at specified address
-  // rom = VGABIOS_START;
+  rom = VGABIOS_START;
 #else
   pci_read_config_dword(dev, PCI_ROM_ADDRESS, &rom);
   // paranoia
