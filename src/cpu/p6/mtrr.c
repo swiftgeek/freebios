@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.19 2001/11/03 02:11:48 ebiederm Exp $
+ * $Id: mtrr.c,v 1.20 2001/11/13 03:43:35 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.19 2001/11/03 02:11:48 ebiederm Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.20 2001/11/13 03:43:35 ebiederm Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -286,10 +286,12 @@ void setup_mtrrs(unsigned long ramsizeK)
 					   MTRR_TYPE_WRBACK);
 			rambase += ramsizeK;
 
-			printk_debug("Setting variable MTRR %d, base: %4dMB, range: %4dMB, type: UC\n",
-			    reg, rambase >> 10, range_uc >> 10);
-			intel_set_var_mtrr(reg++, rambase * 1024, range_uc * 1024,
-					   MTRR_TYPE_UNCACHABLE);
+			if (range_uc) {
+				printk_debug("Setting variable MTRR %d, base: %4dMB, range: %4dMB, type: UC\n",
+					reg, rambase >> 10, range_uc >> 10);
+				intel_set_var_mtrr(reg++, rambase * 1024, range_uc * 1024,
+					MTRR_TYPE_UNCACHABLE);
+			}
 			ramsizeK = 0; /* effectivly a break */
 		} else {
 			range_wb >>= 1;

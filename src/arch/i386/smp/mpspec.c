@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: mpspec.c,v 1.3 2001/10/15 18:19:40 rminnich Exp $";
+static char rcsid[] = "$Id: mpspec.c,v 1.4 2001/11/13 03:43:35 ebiederm Exp $";
 #endif
 
 #include <smp/start_stop.h>
@@ -105,7 +105,8 @@ void smp_write_processors(struct mp_config_table *mc,
 	cpu_features = eax;
 	cpu_feature_flags = edx;
 	for(i = 0; i < MAX_CPUS; i++) {
-		smp_write_processor(mc, i, apic_version,
+		unsigned long cpu_apicid = initial_apicid[i];
+		smp_write_processor(mc, cpu_apicid, apic_version,
 			processor_map[i],
 			cpu_features, cpu_feature_flags
 		);

@@ -14,7 +14,7 @@
  * Bootstrap code for the STPC Consumer
  * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.
  *
- * $Id: ldscript.base,v 1.6 2001/08/21 04:50:37 ebiederm Exp $
+ * $Id: ldscript.base,v 1.7 2001/11/13 03:43:35 ebiederm Exp $
  *
  */
 
@@ -88,8 +88,8 @@ SECTIONS
 	}
 	.stack (.) : {
 		_stack = .;
-		/* Reserve 64k stack for each possible cpu */
-		. = ((MAX_CPUS) * (STACK_SIZE)); 
+		/* Reserve a stack for each possible cpu, +1 extra */
+		. = ((MAX_CPUS * STACK_SIZE) + STACK_SIZE) ; 
 		_estack = .;
 	}
 
