@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.10 2000/12/02 05:48:29 ollie Exp $
+ * $Id: subr.c,v 1.11 2000/12/05 07:25:32 ollie Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.10 2000/12/02 05:48:29 ollie Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.11 2000/12/05 07:25:32 ollie Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -142,7 +142,7 @@ void intel_cache_on(unsigned long base, unsigned long totalram)
 	// set_mtrr is responsible for getting it into the right units!
 	intel_set_mtrr(base, totalram);
 #endif
-	intel_post(0x62);
+	intel_post(0x6A);
 }
 
 void intel_interrupts_on()
