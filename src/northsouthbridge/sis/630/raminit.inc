@@ -26,7 +26,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.3 2000/11/30 03:46:37 ollie Exp $
+ * $Id: raminit.inc,v 1.4 2000/12/01 08:59:47 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -70,6 +70,10 @@ write_common:
 	outb	%al, %dx
 	ret					# End of write_[lpc|pci]_reg
 
+#ifdef SIS630S
+#include "630s_regs.inc"
+#else /* !SIS630S */
 #include "630_regs.inc"
+#endif
 
 register_setting_end:

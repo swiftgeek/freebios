@@ -11,19 +11,13 @@
  * the wisdom of Tom's recommendations ...
  */
 #ifndef lint
-static char rcsid[] = "$Id: newpci.c,v 1.7 2000/12/01 03:33:56 ollie Exp $";
+static char rcsid[] = "$Id: newpci.c,v 1.8 2000/12/01 08:59:46 ollie Exp $";
 #endif
 
 #include <pci.h>
 #undef __KERNEL__
 #include <cpu/p5/io.h>
 #include <printk.h>
-
-#ifdef DEBUG
-#define DBG(x...) printk(KERN_DEBUG x)
-#else
-#define DBG(x...)
-#endif
 
 #define ONEMEG (1 << 20)
 

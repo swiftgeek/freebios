@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.8 2000/11/30 10:23:40 ollie Exp $
+ * $Id: subr.c,v 1.9 2000/12/01 08:59:46 ollie Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.8 2000/11/30 10:23:40 ollie Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.9 2000/12/01 08:59:46 ollie Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -217,9 +217,8 @@ void intel_check_irq_routing_table(void)
 	for (i = 0; i < rt->size; i++)
 		sum += addr[i];
 
-	printk(KERN_DEBUG "%s:%6d:%s() - "
-	       "irq_routing_table located at: 0x%p\n",
-	       __FILE__, __LINE__, __FUNCTION__, addr);
+	DBG("%s:%6d:%s() - irq_routing_table located at: 0x%p\n",
+	    __FILE__, __LINE__, __FUNCTION__, addr);
 
 	sum = (unsigned char)(rt->checksum-sum);
 

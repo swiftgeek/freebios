@@ -25,7 +25,7 @@
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium
  *
- * $Id: ipl.S,v 1.10 2000/12/01 04:35:21 ollie Exp $
+ * $Id: ipl.S,v 1.11 2000/12/01 08:59:46 ollie Exp $
  */
 
 #include "ipl.h"
@@ -355,13 +355,13 @@ doc_cycle_end:
 	ret
 
 sdram_type_bank_1:
-# Column Number	  8	  9	 10	 11	Row Number
+# Column Number	  8	  9	  10	  11	Row Number
 	.byte	0b0000,	0b0100,	0b1000,	0xff	# 11
 	.byte	0xff,	0xff,	0xff,	0xff	# 12
 	.byte	0b0001,	0b0101,	0b1001,	0b1101	# 13
 
 sdram_type_bank_2:	
-# Column Number	  8	  9	 10	 11	Row Number
+# Column Number	  8	  9	  10	  11	Row Number
 	.byte	0b1100,	0xff,	0xff,	0xff	# 11
 	.byte	0b0010,	0b0110,	0b1010,	0b1110	# 12
 	.byte	0b0011,	0b0111,	0b1011,	0b1111	# 13

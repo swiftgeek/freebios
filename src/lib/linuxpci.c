@@ -1,5 +1,5 @@
 /*
- *    $Id: linuxpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $
+ *    $Id: linuxpci.c,v 1.7 2000/12/01 08:59:46 ollie Exp $
  *
  *      PCI Bus Services, see include/linux/pci.h for further explanation.
  *
@@ -10,7 +10,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: linuxpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $";
+static char rcsid[] = "$Id: linuxpci.c,v 1.7 2000/12/01 08:59:46 ollie Exp $";
 #endif
 
 #include <pci.h>
@@ -20,15 +20,8 @@ static char rcsid[] = "$Id: linuxpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $";
 #include <types.h>
 
 extern void intel_post(unsigned char value);
-#define DEBUG
+
 #undef DEBUGSCAN
-
-#ifdef DEBUG
-#define DBG(x...) printk(KERN_DEBUG x)
-#else
-#define DBG(x...)
-#endif
-
 #ifdef DEBUGSCAN
 #define DBGSCAN(x...) printk(KERN_DEBUG x)
 #else
