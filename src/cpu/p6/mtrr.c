@@ -22,16 +22,15 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.8 2000/12/06 03:58:57 ollie Exp $
+ * $Id: mtrr.c,v 1.9 2000/12/06 11:02:35 ollie Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.8 2000/12/06 03:58:57 ollie Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.9 2000/12/06 11:02:35 ollie Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
-#define DEBUG
 #include <printk.h>
 
 #define arraysize(x)   (sizeof(x)/sizeof((x)[0]))

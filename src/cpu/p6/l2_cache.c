@@ -1,4 +1,4 @@
-/* $Id: l2_cache.c,v 1.13 2000/12/05 07:25:32 ollie Exp $ 
+/* $Id: l2_cache.c,v 1.14 2000/12/06 11:02:35 ollie Exp $ 
  *
  * Copyright   : (c) 2000 by Denis Dowling (dpd@alphalink.com.au)
  *
@@ -30,7 +30,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: l2_cache.c,v 1.13 2000/12/05 07:25:32 ollie Exp $";
+static char rcsid[] = "$Id: l2_cache.c,v 1.14 2000/12/06 11:02:35 ollie Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -61,7 +61,7 @@ static void cache_disable(void)
 	unsigned int tmp;
 
 	/* Disable cache */
-	printk( KERN_INFO "Disable Cache\n");
+	DBG("Disable Cache\n");
 
 	/* Write back the cache and flush TLB */
 	asm volatile ("movl  %%cr0, %0\n\t"
@@ -81,7 +81,7 @@ static void cache_enable(void)
 		      "movl  %0, %%cr0\n\t"
 		      :"=r" (tmp) : : "memory");
 
-	printk( KERN_INFO "Enable Cache\n");
+	DBG("Enable Cache\n");
 }
 
 // GOTO bad and GOTO done added by rgm. 
