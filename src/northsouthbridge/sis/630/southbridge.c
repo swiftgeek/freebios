@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.3 2000/10/20 15:46:52 rminnich Exp $
+ * $Id: southbridge.c,v 1.4 2000/10/20 16:54:05 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.3 2000/10/20 15:46:52 rminnich Exp $";
+"$Id: southbridge.c,v 1.4 2000/10/20 16:54:05 rminnich Exp $";
 #endif
 
 
@@ -82,13 +82,14 @@ void enable_floppy()
 
 // simple fixup (which we hope can leave soon) for the sis southbridge part
 void
-southbridge_fixup()
+final_southbridge_fixup()
 {
     struct pci_dev *pcidev;
     
     // ethernet fixup. This should all work, and doesn't, yet. 
     // so we hack it for now. 
-    pcidev = pci_find_device(PCI_VENDOR_ID_SI, 	PCI_DEVICE_ID_SI_503, 
+    // need a manifest constant for the enet device. 
+    pcidev = pci_find_device(PCI_VENDOR_ID_SI, 	0x0900, 
 	(void *)NULL);
 	if (pcidev != NULL) {
 	    u32 bar0 = 0xb001;
