@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.30 2002/10/10 19:02:36 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.31 2003/04/09 00:01:05 ebiederm Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.30 2002/10/10 19:02:36 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.31 2003/04/09 00:01:05 ebiederm Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
@@ -164,6 +164,8 @@ static void wait_for_other_cpus(void)
 		if (!(processor_map[i] & CPU_ENABLED)) {
 			printk_err("CPU %d/%u did not initialize!\n",
 				i, initial_apicid[i]);
+			processor_map[i] = 0;
+			mainboard_cpu_fixup(i);
 		}
 	}
 	printk_debug("All AP CPUs stopped\n");
@@ -173,7 +175,7 @@ static void wait_for_other_cpus(void)
 #define wait_for_other_cpus() do {} while(0)
 #endif /* SMP */
 
-#if SMP && MAX_PHYSICAL_CPUS
+#if SMP && MAX_PHYSICAL_CPUS && (MAX_PHYSICAL_CPUS < MAX_CPUS)
 static void remove_logical_cpus(void)
 {
 	/* To turn off hyperthreading just remove the logical
@@ -355,7 +357,6 @@ void hardwaremain(int boot_complete)
 
 
 	/* to do: intel_serial_on(); */
-
 	final_mainboard_fixup();
 	post_code(0xec);
 
