@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.18 2001/10/24 19:13:15 rminnich Exp $
+ * $Id: mtrr.c,v 1.19 2001/11/03 02:11:48 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.18 2001/10/24 19:13:15 rminnich Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.19 2001/11/03 02:11:48 ebiederm Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -109,6 +109,7 @@ static unsigned char fixed_mtrr_values[][4] = {
 	{ROM, ROM, ROM, ROM}, {ROM, ROM, ROM, ROM},
 };
 #else
+
 static unsigned char fixed_mtrr_values[][4] = {
 	/* MTRRfix64K_00000_MSR, defines memory range from 0KB to 512 KB, each byte cover 64KB area */
 	{RAM, RAM, RAM, RAM}, {RAM, RAM, RAM, RAM},
@@ -143,6 +144,7 @@ static unsigned char fixed_mtrr_values[][4] = {
 	/* MTRRfix4K_F8000_MSR, defines memory range from F8000 to 100000, each byte cover 4KB area */
 	{ROM, ROM, ROM, ROM}, {ROM, ROM, ROM, ROM},
 };
+
 #endif
 
 #undef FB

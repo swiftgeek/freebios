@@ -11,7 +11,7 @@
  * the wisdom of Tom's recommendations ...
  */
 #ifndef lint
-static char rcsid[] = "$Id: newpci.c,v 1.13 2001/08/08 02:45:09 ebiederm Exp $";
+static char rcsid[] = "$Id: newpci.c,v 1.14 2001/11/03 02:11:48 ebiederm Exp $";
 #endif
 
 #include <pci.h>
@@ -750,9 +750,9 @@ void enable_resources(struct pci_bus *bus)
 		u16 command;
 		pci_read_config_word(curdev, PCI_COMMAND, &command);
 		command |= curdev->command;
-		pci_write_config_word(curdev, PCI_COMMAND, command);
-		printk_debug("DEV Set command bus 0x%x devfn 0x%x to 0x%x\n",
+		printk_debug("DEV Set command bus 0x%02x devfn 0x%02x to 0x%02x\n",
 		    curdev->bus->number, curdev->devfn, command);
+		pci_write_config_word(curdev, PCI_COMMAND, command);
 	}
 }
 
