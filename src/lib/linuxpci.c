@@ -1,5 +1,5 @@
 /*
- *    $Id: linuxpci.c,v 1.12 2001/11/27 19:29:56 ebiederm Exp $
+ *    $Id: linuxpci.c,v 1.13 2002/07/02 07:13:10 ebiederm Exp $
  *
  *      PCI Bus Services, see include/linux/pci.h for further explanation.
  *
@@ -10,7 +10,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: linuxpci.c,v 1.12 2001/11/27 19:29:56 ebiederm Exp $";
+static char rcsid[] = "$Id: linuxpci.c,v 1.13 2002/07/02 07:13:10 ebiederm Exp $";
 #endif
 
 #include <pci.h>
@@ -139,11 +139,11 @@ void pci_get_size(struct pci_dev *dev, unsigned long reg, unsigned long addr)
 	// This incidentally catches the common case where registers 
 	// read back as 0 for both address and size. 
 	if (addr == size) {
-		printk_debug(__FUNCTION__
+		printk_spew(__FUNCTION__
 			"dev_fn 0x%x, register %d, read-only"
 			" SO, ignoring it\n",
 			dev->devfn, reg);
-		printk_debug("addr was 0x%x, size was 0x%x\n",addr,size); 
+		printk_spew("addr was 0x%x, size was 0x%x\n",addr,size); 
 		type = 0;
          	size = 0;
          }

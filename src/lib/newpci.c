@@ -11,7 +11,7 @@
  * the wisdom of Tom's recommendations ...
  */
 #ifndef lint
-static char rcsid[] = "$Id: newpci.c,v 1.19 2002/05/25 05:51:03 ollie Exp $";
+static char rcsid[] = "$Id: newpci.c,v 1.20 2002/07/02 07:13:10 ebiederm Exp $";
 #endif
 
 #include <pci.h>
@@ -21,7 +21,7 @@ static char rcsid[] = "$Id: newpci.c,v 1.19 2002/05/25 05:51:03 ollie Exp $";
 
 #define ONEMEG (1 << 20)
 
-#define PCI_MEM_START 0x80000000
+#define PCI_MEM_START 0xC0000000
 #define PCI_IO_START 0x1000
 
 // historical functions, sometimes very useful. 

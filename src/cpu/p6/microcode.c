@@ -1,10 +1,10 @@
 /* microcode.c:	Microcode update for PIII and later CPUS
  *
- * $Id: microcode.c,v 1.3 2001/08/08 02:45:09 ebiederm Exp $
+ * $Id: microcode.c,v 1.4 2002/07/02 07:13:09 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: microcode.c,v 1.3 2001/08/08 02:45:09 ebiederm Exp $";
+static char rcsid[] = "$Id: microcode.c,v 1.4 2002/07/02 07:13:09 ebiederm Exp $";
 #endif
 
 #include <pciconf.h>
@@ -334,7 +334,7 @@ static void display_cpuid_update_microcode(void)
 	}
 }
 
-void p6_cpufixup(unsigned long totalram)
+void p6_cpufixup(struct mem_range *mem)
 {
 	printk_info("Updating microcode\n");
 	display_cpuid_update_microcode();
