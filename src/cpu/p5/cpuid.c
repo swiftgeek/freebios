@@ -1,6 +1,6 @@
 
 #ifndef lint
-static char rcsid[] = "$Id: cpuid.c,v 1.7 2001/03/23 22:56:05 ebiederm Exp $";
+static char rcsid[] = "$Id: cpuid.c,v 1.8 2001/04/25 02:34:00 ollie Exp $";
 #endif
 
 #include <pciconf.h>
@@ -11,9 +11,11 @@ static char rcsid[] = "$Id: cpuid.c,v 1.7 2001/03/23 22:56:05 ebiederm Exp $";
 #include <cpu/p6/msr.h>
 #endif
 
-#ifdef i586
+
 int intel_mtrr_check(void)
 {
+#ifdef i686
+	/* Only Pentium Pro and later have MTRR */
 	unsigned long low, high;
 
 	DBG("\nMTRR check\n");
@@ -37,8 +39,10 @@ int intel_mtrr_check(void)
 
 	post_code(0x93);
 	return ((int) low);
+#else /* !i686 */
+	return 0;
+#endif /* i686 */
 }
-#endif
 
 void intel_display_cpuid(void)
 {
