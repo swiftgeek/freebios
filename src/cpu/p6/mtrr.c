@@ -22,13 +22,13 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.10 2000/12/07 01:43:28 ollie Exp $
+ * $Id: mtrr.c,v 1.11 2001/01/04 07:50:56 ollie Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.10 2000/12/07 01:43:28 ollie Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.11 2001/01/04 07:50:56 ollie Exp $";
 #endif
-
+#define DEBUG
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
 #include <printk.h>
@@ -144,8 +144,9 @@ void intel_set_var_mtrr(unsigned int reg, unsigned long base, unsigned long size
 		   relevant mask register to disable a range. */
 		wrmsr (MTRRphysMask_MSR (reg), 0, 0);
 	} else {
+		/* Bit 32-35 of MTRRphysMask should be set to 1 */
 		wrmsr (MTRRphysBase_MSR (reg), base | type, 0);
-		wrmsr (MTRRphysMask_MSR (reg), ~(size - 1) | 0x800, 0);
+		wrmsr (MTRRphysMask_MSR (reg), ~(size - 1) | 0x800, 0x0F);
 	}
 
 	// turn cache back on. 
@@ -156,7 +157,7 @@ void intel_set_var_mtrr(unsigned int reg, unsigned long base, unsigned long size
 }
 
 /* fms: find most sigificant bit set, stolen from Linux Kernel Source. */
-static __inline__ int fms(int x)
+static __inline__ unsigned int fms(unsigned int x)
 {
 	int r;
 
