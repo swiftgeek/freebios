@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.10 2001/12/06 18:13:13 rminnich Exp $
+ * $Id: ipl.S,v 1.11 2002/01/12 19:15:43 rminnich Exp $
  */
 
 #include "ipl.h"
@@ -55,6 +55,10 @@ sis730spd_start:
 
 	movw	$0x5501, %ax			# Mode# enable, this bit
 	CALL_SP(write_pci_register)		# should be set before sizing.
+#ifdef CONFIG_SIS_DISABLE_ETHERNET
+	mowv $0x7c0f, %ax
+	CALL_SP(write_lpc_register)
+#endif
 
 #ifdef SIZE_ALL
 	xorw	%bx, %bx			# clear %fs, %fs is used as "bitmap" of
