@@ -26,13 +26,16 @@
  *	2. SiS 550A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.1 2001/04/25 03:38:49 ollie Exp $
+ * $Id: raminit.inc,v 1.2 2001/04/25 04:11:00 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
 #define PCI_DATA_PORT		0xcfc
 
 #define NORTH_BRIDGE_BASE_ADDR	0x80000000
+
+	/* set new stack */
+	movl	$_estack, %esp
 
 register_setting_start:
 	movl	$northbridge_init_table, %esi
