@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.6 2000/11/28 05:54:04 rminnich Exp $
+ * $Id: subr.c,v 1.7 2000/11/30 04:50:27 rminnich Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.6 2000/11/28 05:54:04 rminnich Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.7 2000/11/30 04:50:27 rminnich Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -121,6 +121,9 @@ void error(char errmsg[])
 void intel_post(char value)
 {
 	outb(value, 0x80);
+#ifdef SERIAL_POST
+	printk(KERN_INFO "POST: 0x%02x\n", value);
+#endif
 }
 
 void intel_cache_on(unsigned long base, unsigned long totalram)
