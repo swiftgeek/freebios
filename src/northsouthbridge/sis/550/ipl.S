@@ -1,5 +1,5 @@
 /*
- * ipl.S:	 Initial Program Loader (IPL) for SiS 550 and M-System DoC Millennium
+ * ipl.S:	 Initial Program Loader (IPL) for SiS 550 SoC and M-System DoC Millennium
  *
  *
  * Copyright 2000 Silicon Integrated Systems Corporation
@@ -20,13 +20,13 @@
  *
  *
  * Reference:
- *	1. SiS 550 Specification
+ *	1. SiS 550 Chipset Registers Version 0.1, Mar. 8, 2001
  *	2. System Management Bus Specification Rev 1.1
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.1 2001/04/25 03:38:49 ollie Exp $
+ * $Id: ipl.S,v 1.2 2001/05/04 05:39:03 ollie Exp $
  */
 
 #include "ipl.h"
