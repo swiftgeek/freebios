@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.8 2002/02/20 02:35:31 ollie Exp $
+ * $Id: ipl.S,v 1.9 2002/03/21 02:17:37 ollie Exp $
  */
 
 #include "ipl.h"
@@ -366,10 +366,14 @@ spl_vector:
 	.byte	0xea				# jmp to 8000:0000, where SPL
 	.word	0x0000, SPL_RAM_SEG		# (LinuxBIOS) starts in RAM
 
+#ifdef STD_FLASH
+	.org 0xffff
+#else /* !STD_FLASH i.e. DoC Mil */
 #if (USE_DOC_MIL == 1)
 	.org 0x1ff
 #elif (USE_DOC_2000_TSOP == 1) || (USE_DOC_MIL_PLUS == 1)
 	.org 0x3ff
+#endif
 #endif
 
 end:
