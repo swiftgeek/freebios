@@ -26,16 +26,13 @@
  *	2. SiS 550A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.2 2001/04/25 04:11:00 ollie Exp $
+ * $Id: raminit.inc,v 1.3 2001/11/13 05:08:11 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
 #define PCI_DATA_PORT		0xcfc
 
 #define NORTH_BRIDGE_BASE_ADDR	0x80000000
-
-	/* set new stack */
-	movl	$_estack, %esp
 
 register_setting_start:
 	movl	$northbridge_init_table, %esi
@@ -45,10 +42,6 @@ register_setting_start:
 init_northbridge:
 	lodsw	(%esi), %ax			# load the register address/value to %ax
 	xchgb	%al, %ah			# exchange address/values for write_common
-	call	write_northbridge_register
-	loopnz	init_northbridge
-
-	jmp	register_setting_end
 
 write_northbridge_register:			
 	/* Input: AH - register number. AL - register value. */
@@ -68,7 +61,10 @@ write_common:
 	addb	%al, %dl
 	movb	%bl, %al
 	outb	%al, %dx
-	ret					# End of write_[lpc|pci]_reg
+
+	loopnz	init_northbridge
+
+	jmp	register_setting_end
 
 #include "550_regs.inc"
 

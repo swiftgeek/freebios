@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.3 2001/06/20 06:57:34 ollie Exp $
+ * $Id: ipl.S,v 1.4 2001/11/13 05:08:09 ollie Exp $
  */
 
 #include "ipl.h"
@@ -223,7 +223,7 @@ sis630ipl_start:
 	xorw	%dx, %dx			# clear %dx, start of RAM
 	movw	$0x800, %si			# point %si to CDSN Data area
 	movw	$0x1000, %di			# point %di to CDSN Control area
-	movw	$DOC_SPL_START_BLK, %bp		# start page of LinuxBIOS
+	movw	$DOC_SPL_START_PAGE, %bp	# start page of LinuxBIOS
 
 	movb	$0x84, %al			# Reset DOC Millennium
 	call	doc_reset
@@ -276,7 +276,8 @@ doc_delay:
 
 	movw	%di, %dx			# save current destination
 	incw	%bp				# increse current page number
-	cmpw	$128, %bp			# moved 63 KB ??
+	cmpw	$(DOC_SPL_START_PAGE + DOC_SPL_SIZE_IN_PAGE), %bp
+						# moved enough data ??
 	jl	read_next_page			# no, read next page
 
 sis630ipl_end:

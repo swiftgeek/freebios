@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.3 2001/08/21 02:37:34 ebiederm Exp $
+ * $Id: southbridge.c,v 1.4 2001/11/13 05:08:09 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.3 2001/08/21 02:37:34 ebiederm Exp $";
+"$Id: southbridge.c,v 1.4 2001/11/13 05:08:09 ollie Exp $";
 #endif
 
 
@@ -51,7 +51,7 @@ void nvram_on()
 
 	}
 	printk_debug("Now try to turn off shadow\n");
-#ifdef USE_DOC_MIL
+#if !defined(STD_FLASH)
 	/* turn off nvram shadow in 0xc0000 ~ 0xfffff, i.e. accessing segment C - F
 	   is actually to the DRAM not NVRAM. For 512KB NVRAM case, this one should be
 	   disabled */
