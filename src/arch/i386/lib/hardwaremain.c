@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.28 2002/07/18 20:30:20 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.29 2002/08/21 21:01:37 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.28 2002/07/18 20:30:20 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.29 2002/08/21 21:01:37 rminnich Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
@@ -342,7 +342,7 @@ void hardwaremain(int boot_complete)
 
 	nvram_on();
 
-	keyboard_on();
+	//keyboard_on();
 
 #ifndef USE_NEW_SUPERIO_INTERFACE
 	enable_floppy();
