@@ -23,7 +23,7 @@
  *	1. SiS 630 Specification
  *	2. SiS 950 Specification
  *
- * $Id: flash_rom.c,v 1.4 2002/01/29 20:18:00 rminnich Exp $
+ * $Id: flash_rom.c,v 1.5 2002/03/21 22:40:40 rminnich Exp $
  */
 
 #include <errno.h>
@@ -47,6 +47,8 @@ struct flashchip flashchips[] = {
      probe_jedec,   erase_jedec,   write_jedec},
     {"SST28SF040A", SST_ID,     SST_28SF040,  NULL, 512, 256,
      probe_28sf040, erase_28sf040, write_28sf040},
+    {"SST39SF020A", SST_ID,     SST_39SF020,  NULL, 256, 4096,
+     probe_jedec, erase_jedec, write_39sf020},
     {"W29C020C",    WINBOND_ID, W_29C020C,    NULL, 256, 128,
      probe_jedec,   erase_jedec,   write_jedec},
     {NULL,}
