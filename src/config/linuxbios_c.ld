@@ -11,7 +11,7 @@
  * Bootstrap code for the STPC Consumer
  * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.
  *
- * $Id: linuxbios_c.ld,v 1.1 2002/10/25 22:59:04 ebiederm Exp $
+ * $Id: linuxbios_c.ld,v 1.2 2002/11/10 06:30:18 aip Exp $
  *
  */
 
@@ -53,6 +53,13 @@ SECTIONS
 		epci_drivers = . ;
 		*(.rodata)
 		*(.rodata.*)
+		/*
+		 * kevinh/Ispiri - Added an align, because the objcopy tool
+		 * incorrectly converts sections that are not long word aligned.
+		 * This breaksthe linuxbios.strip target.
+		 */
+		 . = ALIGN(4);
+
 		_erodata = .;
 	}	
 	/*
