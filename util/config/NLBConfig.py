@@ -8,7 +8,7 @@
 # specified by the 'target' command in the user's configfile.  For more
 # info, see .../freebios/Documentation/Config
 
-# $Id: NLBConfig.py,v 1.39 2003/04/14 23:45:42 ebiederm Exp $
+# $Id: NLBConfig.py,v 1.40 2004/05/13 17:04:37 rminnich Exp $
 # Author:
 # Modified by Jan Kok to improve readability of Makefile, etc.
 import sys
@@ -393,12 +393,14 @@ def nsuperio(dir, superio_commands):
 	decl = '';
 	decl = "extern struct superio_control superio_"
 	decl = decl + superio_decl_name  + "_control; \n"
-	decl = decl + "struct superio superio_" + superio_decl_name 
+	decl = decl + "struct superio superio_" + "%s_%d" %(superio_decl_name,
+							   numsuperio)
 	decl = decl + "= { " 
 	decl = decl + "&superio_" + superio_decl_name+ "_control"
 	decl = decl + superio_cmds + "};\n"
 	superio_decls = superio_decls + decl;
-	superio_devices.append("&superio_" + superio_decl_name);
+	superio_devices.append("&superio_" + "%s_%d" % (superio_decl_name,
+						       numsuperio));
 	# note that we're using the new interface
 	option(dir, "USE_NEW_SUPERIO_INTERFACE=1")
 	numsuperio = numsuperio + 1
