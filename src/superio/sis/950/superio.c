@@ -1,3 +1,7 @@
+#ifndef lint
+static char rcsid[] = "$Id: superio.c,v 1.4 2000/12/02 03:51:28 ollie Exp $";
+#endif
+
 // just define these here. We may never need them anywhere else
 #define PNP_COM1_DEVICE 0x1
 #define PNP_COM2_DEVICE 0x2

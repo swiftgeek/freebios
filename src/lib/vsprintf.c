@@ -9,6 +9,9 @@
  * Wirzenius wrote this portably, Torvalds fucked it up :-)
  */
 
+#ifndef lint
+static char rcsid[] = "$Id: vsprintf.c,v 1.3 2000/12/02 03:51:28 ollie Exp $";
+#endif
 
 #include <stdarg.h>
 #include <types.h>

@@ -1,3 +1,7 @@
+#ifndef lint
+static char rcsid[] = "$Id: keyboard.c,v 1.2 2000/12/02 03:51:28 ollie Exp $";
+#endif
+
 #include <cpu/p5/io.h>
 #include <subr.h>
 /* much better keyboard init courtesy ollie@sis.com.tw 

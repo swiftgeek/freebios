@@ -1,4 +1,4 @@
-/* $Id: l2_cache.c,v 1.10 2000/12/02 03:33:36 ollie Exp $ 
+/* $Id: l2_cache.c,v 1.11 2000/12/02 03:51:28 ollie Exp $ 
  *
  * Copyright   : (c) 2000 by Denis Dowling (dpd@alphalink.com.au)
  *
@@ -28,6 +28,11 @@
  * Intel Architecture Software Developer's Manual
  * Volume 3: System Programming
  */
+
+#ifndef lint
+static char rcsid[] = "$Id: l2_cache.c,v 1.11 2000/12/02 03:51:28 ollie Exp $";
+#endif
+
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
 #include <cpu/p5/cpuid.h>
