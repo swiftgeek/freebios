@@ -23,7 +23,7 @@
  *	1. SiS 630 Specification
  *	2. SiS 950 Specification
  *
- * $Id: flash_rom.c,v 1.11 2002/12/30 13:10:06 aip Exp $
+ * $Id: flash_rom.c,v 1.12 2003/01/13 23:43:36 rminnich Exp $
  */
 
 #include <errno.h>
@@ -62,6 +62,8 @@ struct flashchip flashchips[] = {
     {"M29F400BT",   ST_ID, ST_M29F400BT ,    NULL, 512, 64*1024,
      probe_m29f400bt,   erase_m29f400bt,   write_linuxbios_m29f400bt},
     {"82802ab",   137, 173 ,    NULL, 512, 64*1024,
+     probe_82802ab,   erase_82802ab,   write_82802ab},
+    {"82802ac",   137, 172 ,    NULL, 1024, 64*1024,
      probe_82802ab,   erase_82802ab,   write_82802ab},
     {NULL,}
 };
