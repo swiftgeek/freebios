@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.25 2002/07/11 13:31:55 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.26 2002/07/16 23:02:53 ebiederm Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.25 2002/07/11 13:31:55 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.26 2002/07/16 23:02:53 ebiederm Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
@@ -66,6 +66,10 @@ static char rcsid[] = "$Id: hardwaremain.c,v 1.25 2002/07/11 13:31:55 ebiederm E
 #include <boot/linuxbios_table.h>
 #include <pc80/mc146818rtc.h>
 
+#if USE_ELF_BOOT
+#include <rom/read_bytes.h>
+#include <boot/elf.h>
+#endif
 
 /* The processor map. 
  * Now that SMP is in linuxbios, and Linux counts on us
@@ -121,7 +125,7 @@ static struct mem_range *get_ramsize(void)
 	return mem;
 }
 
-#ifdef SMP
+#if SMP == 1
 /* Number of cpus that are currently running in linuxbios */
 static atomic_t active_cpus = ATOMIC_INIT(1);
 
