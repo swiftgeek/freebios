@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: northbridge.c,v 1.3 2000/10/30 09:03:02 ollie Exp $
+ * $Id: northbridge.c,v 1.4 2000/12/01 06:39:30 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: northbridge.c,v 1.3 2000/10/30 09:03:02 ollie Exp $";
+"$Id: northbridge.c,v 1.4 2000/12/01 06:39:30 ollie Exp $";
 #endif
 
 
@@ -94,24 +94,10 @@ unsigned long sizeram()
 }
 
 #ifdef HAVE_FRAMEBUFFER
-
 void framebuffer_on()
 {
 	unsigned long devfn = PCI_DEVFN(0, 0);
-	//	unsigned int bus = 0;
-	//	u8 dramstatus;
 	u32 command;
-
-#if 0
-	/* No, you can not do this here, but WHY ??? */
-	/* TODO:
-	   1. clean up the memory footprint to make this work.
-	   2. make the share size configurable.
-	   3. use the information found from DRAM sizing to select whic DIMM is to be shared */
-	pcibios_read_config_byte(0, devfn, SIS630_BANKENABLE, &dramstatus);
-	dramstatus |= 0x90;
-	pcibios_write_config_byte(0, devfn, SIS630_BANKENABLE, dramstatus);
-#endif
 
 	/* enable legacy VGA register (0x3?4, 0x3?5), not actually needed */
 	devfn = PCI_DEVFN(2, 0);
@@ -119,7 +105,6 @@ void framebuffer_on()
 	command |= 0x08;
 	pcibios_write_config_dword(0, devfn, 0x3e, command);
 }
-
 #endif	/* HAVE_FRAMEBUFFER */
 
 #define RTABLE_DEST 0xf0000
