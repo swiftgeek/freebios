@@ -1,5 +1,5 @@
 /*
- *	$Id: pci.h,v 1.9 2002/07/18 20:30:20 ebiederm Exp $
+ *	$Id: pci.h,v 1.10 2002/07/19 21:06:24 rminnich Exp $
  *
  *	PCI defines and function prototypes
  *	Copyright 1994, Drew Eckhardt
@@ -390,8 +390,7 @@ int pcibios_find_device (unsigned short vendor, unsigned short dev_id,
 			 unsigned char *dev_fn);
 
 /* Generic PCI interface functions */
-
-void pci_initiailize(void);
+void pci_initialize(void);
 unsigned int pci_scan_bus(struct pci_dev *bus, unsigned int max);
 unsigned int pci_scan_bridge(struct pci_dev *bus, unsigned int max);
 
