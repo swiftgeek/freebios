@@ -22,7 +22,7 @@
  * Reference:
  *	MX29F002/002N data sheet
  *
- * $Id: mx29f002.c,v 1.4 2003/02/11 16:09:12 rminnich Exp $
+ * $Id: mx29f002.c,v 1.5 2003/07/25 04:37:41 rminnich Exp $
  */
 
 #include "flash.h"
@@ -97,7 +97,8 @@ int write_29f002 (struct flashchip * flash, char * buf)
    printf ("Programming Page: ");
     for (i = 0; i < total_size; i++) {
 	/* write to the sector */
-	printf ("address: 0x%08lx", i);
+	if ((i & 0xfff) == 0)
+	    printf ("address: 0x%08lx", i);
 	*(bios + 0x5555) = 0xAA;
 	*(bios + 0x2AAA) = 0x55;
 	*(bios + 0x5555) = 0xA0;
@@ -106,7 +107,8 @@ int write_29f002 (struct flashchip * flash, char * buf)
 	/* wait for Toggle bit ready */
 	toggle_ready_jedec(dst);
 
-	printf ("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	if ((i & 0xfff) == 0)
+	    printf ("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
     }
 #endif
     printf("\n");
