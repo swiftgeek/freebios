@@ -1,6 +1,6 @@
 
 #ifndef lint
-static char rcsid[] = "$Id: cpuid.c,v 1.6 2001/02/08 16:17:38 rminnich Exp $";
+static char rcsid[] = "$Id: cpuid.c,v 1.7 2001/03/23 22:56:05 ebiederm Exp $";
 #endif
 
 #include <pciconf.h>
@@ -35,7 +35,7 @@ int intel_mtrr_check(void)
 
 	DBG("\n");
 
-	intel_post(0x93);
+	post_code(0x93);
 	return ((int) low);
 }
 #endif
@@ -217,5 +217,5 @@ void intel_display_cpuid(void)
 	}
 
 	DBG("\n");
-	intel_post(0x92);
+	post_code(0x92);
 }

@@ -22,16 +22,17 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.14 2001/02/08 16:17:38 rminnich Exp $
+ * $Id: mtrr.c,v 1.15 2001/03/23 22:56:05 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.14 2001/02/08 16:17:38 rminnich Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.15 2001/03/23 22:56:05 ebiederm Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
 #include <printk.h>
+#include <subr.h>
 
 #define arraysize(x)   (sizeof(x)/sizeof((x)[0]))
 
@@ -205,7 +206,7 @@ void intel_set_mtrr(unsigned long rambase, unsigned long ramsizeK)
 	DBG("\n");
 
 	while (ramsizeK != 0 && reg <= 6) {
-		intel_post(0x60 + reg);
+		post_code(0x60 + reg);
 
 		range_wb = 1 << (fms(ramsizeK - 1) + 1);
 		range_uc = range_wb - ramsizeK;

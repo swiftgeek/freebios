@@ -11,12 +11,12 @@
  * the wisdom of Tom's recommendations ...
  */
 #ifndef lint
-static char rcsid[] = "$Id: newpci.c,v 1.9 2001/02/15 15:23:06 rminnich Exp $";
+static char rcsid[] = "$Id: newpci.c,v 1.10 2001/03/23 22:56:05 ebiederm Exp $";
 #endif
 
 #include <pci.h>
 #undef __KERNEL__
-#include <cpu/p5/io.h>
+#include <arch/io.h>
 #include <printk.h>
 
 #define ONEMEG (1 << 20)

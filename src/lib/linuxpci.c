@@ -1,5 +1,5 @@
 /*
- *    $Id: linuxpci.c,v 1.8 2000/12/06 11:02:36 ollie Exp $
+ *    $Id: linuxpci.c,v 1.9 2001/03/23 22:56:05 ebiederm Exp $
  *
  *      PCI Bus Services, see include/linux/pci.h for further explanation.
  *
@@ -10,7 +10,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: linuxpci.c,v 1.8 2000/12/06 11:02:36 ollie Exp $";
+static char rcsid[] = "$Id: linuxpci.c,v 1.9 2001/03/23 22:56:05 ebiederm Exp $";
 #endif
 
 #include <pci.h>
@@ -18,8 +18,9 @@ static char rcsid[] = "$Id: linuxpci.c,v 1.8 2000/12/06 11:02:36 ollie Exp $";
 #include <cpu/p5/io.h>
 #include <printk.h>
 #include <types.h>
+#include <string.h>
+#include <subr.h>
 
-extern void intel_post(unsigned char value);
 
 #undef DEBUGSCAN
 #ifdef DEBUGSCAN
@@ -204,7 +205,7 @@ unsigned int pci_scan_bus(struct pci_bus *bus)
 	bus_last = &bus->devices;
 	max = bus->secondary;
 
-	intel_post(0x24);
+	post_code(0x24);
 
 	/* probe all devices on this bus with some optimization for non-existance and 
 	   single funcion devices */
@@ -322,7 +323,7 @@ unsigned int pci_scan_bus(struct pci_bus *bus)
 		}
 	}
 
-	intel_post(0x25);
+	post_code(0x25);
 	/*
 	 * After performing arch-dependent fixup of the bus, look behind
 	 * all PCI-to-PCI bridges on this bus.
@@ -454,7 +455,7 @@ unsigned int pci_scan_bus(struct pci_bus *bus)
 	 * Return how far we've got finding sub-buses.
 	 */
 	DBG("PCI: pci_scan_bus returning with max=%02x\n", max);
-	intel_post(0x55);
+	post_code(0x55);
 	return max;
 }
 
