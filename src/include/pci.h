@@ -1,5 +1,5 @@
 /*
- *	$Id: pci.h,v 1.12 2003/04/14 22:54:34 rminnich Exp $
+ *	$Id: pci.h,v 1.13 2003/06/24 23:40:14 rminnich Exp $
  *
  *	PCI defines and function prototypes
  *	Copyright 1994, Drew Eckhardt
@@ -488,6 +488,7 @@ struct superio {
 	unsigned int keyboard, cir, game;
 	unsigned int gpio1, gpio2, gpio3;
 	unsigned int acpi,hwmonitor;
+	unsigned int mouse;
 };
 
 struct southbridge;
