@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.4 2001/05/21 05:39:35 ollie Exp $
+ * $Id: southbridge.c,v 1.5 2001/05/21 07:42:47 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.4 2001/05/21 05:39:35 ollie Exp $";
+"$Id: southbridge.c,v 1.5 2001/05/21 07:42:47 ollie Exp $";
 #endif
 
 
@@ -105,6 +105,12 @@ south_fixup(void)
 	    u8 reg;
 	    pci_read_config_byte(pcidev, 0x77, &reg);
 	    pci_write_config_byte(pcidev, 0x77, reg & 0xEF);
+
+	    /* IO address for CIR */
+	    pci_write_config_byte(pcidev, 0x4A, 0x11);
+	    pci_write_config_byte(pcidev, 0x4B, 0x03);
+	    /* IRQ for CIR */
+	    pci_write_config_byte(pcidev, 0x6C, 0x05);
 	}
 }
 
