@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: vgabios.c,v 1.6 2002/03/29 23:11:05 rminnich Exp $";
+static char rcsid[] = "$Id: vgabios.c,v 1.7 2003/05/22 12:59:58 aip Exp $";
 #endif
 
 #include <pci.h>
@@ -63,7 +63,7 @@ static char rcsid[] = "$Id: vgabios.c,v 1.6 2002/03/29 23:11:05 rminnich Exp $";
  *  negligence or otherwise) arising in any way out of the use of this
  *  software, even if advised of the possibility of such damage.
  *
- *  $Id: vgabios.c,v 1.6 2002/03/29 23:11:05 rminnich Exp $
+ *  $Id: vgabios.c,v 1.7 2003/05/22 12:59:58 aip Exp $
  *--------------------------------------------------------------------*/
 #if (CONFIG_VGABIOS == 1)
 
@@ -160,12 +160,18 @@ do_vgabios(void)
     printk_debug("NO VGA FOUND\n");
     return;
   }
-  printk_debug("found VGA: vid=%ux, did=%ux\n", dev->vendor, dev->device);
+  printk_debug("found VGA: vid=%x, did=%x\n", dev->vendor, dev->device);
+
+#ifdef VGABIOS_START
+  // Use VGA BIOS blob at specified address
+  // rom = VGABIOS_START;
+#else
   pci_read_config_dword(dev, PCI_ROM_ADDRESS, &rom);
   // paranoia
   rom = 0xf0000000;
   pci_write_config_dword(dev, PCI_ROM_ADDRESS, rom|1);
   printk_debug("rom base, size: %x\n", rom);
+#endif
   buf = (unsigned char *) rom;
   if ((buf[0] == 0x55) && (buf[1] = 0xaa)) {
   	memcpy((void *) 0xc0000, buf, size);
@@ -176,7 +182,9 @@ do_vgabios(void)
   	real_mode_switch_call_vga();
   } else 
 	printk_debug("BAD SIGNATURE 0x%x 0x%x\n", buf[0], buf[1]);
+#ifndef VGABIOS_START
   pci_write_config_dword(dev, PCI_ROM_ADDRESS, 0);
+#endif
 }
 
 #endif // (CONFIG_VGABIOS == 1)
