@@ -14,7 +14,7 @@
  * Bootstrap code for the STPC Consumer
  * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.
  *
- * $Id: ldscript.base,v 1.7 2001/11/13 03:43:35 ebiederm Exp $
+ * $Id: ldscript.base,v 1.8 2001/11/25 18:19:43 rminnich Exp $
  *
  */
 
@@ -47,6 +47,7 @@ SECTIONS
 	.rodata (.) :  {
 		_rodata = .;
 		*(.rodata)
+		*(.rodata.*)
 		_erodata = .;
 	}
 
