@@ -21,7 +21,7 @@
  *
  * Reference:
  *
- * $Id: jedec.c,v 1.1 2000/11/06 01:53:36 ollie Exp $
+ * $Id: jedec.c,v 1.2 2003/07/09 14:48:55 rminnich Exp $
  */
 
 #include "flash.h"
@@ -29,7 +29,7 @@
 
 int probe_jedec (struct flashchip * flash)
 {
-	char * bios = flash->virt_addr;
+	char * volatile bios = flash->virt_addr;
 	unsigned char  id1, id2;
 
 	*(char *) (bios + 0x5555) = 0xAA;
@@ -55,7 +55,7 @@ int probe_jedec (struct flashchip * flash)
 
 int erase_jedec (struct flashchip * flash)
 {
-	char * bios = flash->virt_addr;
+	char * volatile bios = flash->virt_addr;
 
 	*(char *) (bios + 0x5555) = 0xAA;
 	*(char *) (bios + 0x2AAA) = 0x55;
