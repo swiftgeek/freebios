@@ -83,7 +83,7 @@ ldscript = [
 	' * Bootstrap code for the STPC Consumer',
 	' * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.',
 	' *',
-	' * $Id: NLBConfig.py,v 1.1 2000/12/13 04:02:15 rminnich Exp $',
+	' * $Id: NLBConfig.py,v 1.2 2000/12/13 04:31:02 rminnich Exp $',
 	' *',
 	' */',
 	'/* oh, barf. This wont work if all you use is .o\'s.  -- RGM */',
@@ -422,15 +422,16 @@ def nmakerule(dir, rule):
 	cmd = "([^" + wspc + "]+)"
 	sep = "([" + wspc + "]+)"
 	rest = "(.*)"
-	tail = "([" + wspc + "]*)"
-	pat = sep + cmd + sep + cmd + sep + rest + tail
+	headtail = "([" + wspc + "]*)"
+	pat = cmd + sep + cmd + sep + rest + headtail
+	print "pat :", pat, ":", rule
 	command_re = re.compile(pat)
 	m = command_re.match(rule)
-	print m, rule
+	print m
 	rulename = m.group(1)
 	dependencies = m.group(3)
 	actions = m.group(5)
-	print "rulename ", rulename, " deps ", dependencies
+	print "rulename :", rulename, ": deps:", dependencies,":"
 	print "    actions ", actions
 	userrules.append(rule)
 
@@ -502,6 +503,7 @@ command_actions = {
 	'keyboard'    : keyboard, 
 	'docipl'      : docipl,
 	'makerule'    : makerule,
+	'nmakerule'    : nmakerule,
 	'option'    : option,
 	'nooption'    : nooption,
 	'commandline' : commandline
