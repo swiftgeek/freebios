@@ -1,20 +1,20 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.7 2000/11/30 04:50:27 rminnich Exp $
+ * $Id: subr.c,v 1.8 2000/11/30 10:23:40 ollie Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.7 2000/11/30 04:50:27 rminnich Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.8 2000/11/30 10:23:40 ollie Exp $";
 #endif
 
 #include <cpu/p5/io.h>
-
 #include <cpu/p5/macros.h>
+#include <cpu/p6/msr.h>
+
 #include <printk.h>
 #include <pci.h>
 #include <subr.h>
-#include <linux/asm-i386/msr.h>
 
 #ifdef SERIAL_CONSOLE
 #include <serial_subr.h>
@@ -106,12 +106,6 @@ void printint(unsigned long x)
 void error(char errmsg[])
 {
 	display(errmsg);
-
-/* what a bad idea -- this wipes out the most recent POST!
- * comment out unless someone comes up with a great reason to keep it.
-	intel_post(0xee);
- */
-
 	while (1);		/* Halt */
 }
 
@@ -195,7 +189,6 @@ void intel_interrupts_on()
 void intel_zero_irq_settings(void)
 {
 	struct pci_dev *pcidev;
-//	unsigned char irq;
 	unsigned char line;
   
 	pcidev = pci_devices;
@@ -221,7 +214,7 @@ void intel_check_irq_routing_table(void)
 	addr = (u8 *)rt;
 
 	sum = 0;
-	for (i=0; i<rt->size; i++)
+	for (i = 0; i < rt->size; i++)
 		sum += addr[i];
 
 	printk(KERN_DEBUG "%s:%6d:%s() - "
