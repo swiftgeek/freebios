@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: mpspec.c,v 1.5 2002/01/08 07:04:35 ebiederm Exp $";
+static char rcsid[] = "$Id: mpspec.c,v 1.6 2002/12/03 16:12:11 rminnich Exp $";
 #endif
 
 #include <smp/start_stop.h>
@@ -164,6 +164,11 @@ void smp_write_intsrc(struct mp_config_table *mc,
 	mpc->mpc_dstapic = dstapic;
 	mpc->mpc_dstirq = dstirq;
 	smp_add_mpc_entry(mc, sizeof(*mpc));
+#if CONFIG_DEBUG_MPTABLE == 1
+	printk_info("add intsrc srcbus 0x%x srcbusirq 0x%x, dstapic 0x%x, dstirq 0x%x\n",
+				srcbus, srcbusirq, dstapic, dstirq);
+	hexdump(__FUNCTION__, mpc, sizeof(*mpc));
+#endif
 }
 
 
