@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.11 2001/11/27 19:29:55 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.12 2001/12/20 04:04:40 ebiederm Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.11 2001/11/27 19:29:55 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.12 2001/12/20 04:04:40 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
@@ -49,7 +49,6 @@ static char rcsid[] = "$Id: hardwaremain.c,v 1.11 2001/11/27 19:29:55 ebiederm E
 #include <part/floppy.h>
 #include <part/sizeram.h>
 #include <part/hard_reset.h>
-#include <part/fallback_boot.h>
 #include <arch/ioapic.h>
 #include <pc80/i8259.h>
 #include <pc80/keyboard.h>
@@ -289,9 +288,6 @@ void hardwaremain(int boot_complete)
 	/* copy the smp block to address 0 */
 	post_code(0x96);
 	write_smp_table((void *)16, processor_map);
-
-	/* Reset to booting from this image as late as possible */
-	boot_successful();
 
 #ifdef LINUXBIOS
 	printk_info("Jumping to linuxbiosmain()...\n");
