@@ -25,7 +25,7 @@
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium
  *
- * $Id: ipl.S,v 1.3 2000/10/27 00:08:31 ollie Exp $
+ * $Id: ipl.S,v 1.4 2000/11/01 03:08:35 rminnich Exp $
  */
 
 #include "ipl.h"
@@ -164,11 +164,17 @@ no_sdram:
 
 	movw	%fs, %ax
 	movb	$0x63, %ah
-
+#ifdef HAVE_FRAMEBUFFER
 	orb	$0x90, %al			# enable SMA 4 MB for VGA
+#endif	
 #else /* SIZE_ALL */
 no_sdram:
+#ifdef HAVE_FRAMEBUFFER
+						# enable DIMM 0 and 
 	movw	$0x6391, %ax			# enable SMA 4 MB for VGA
+#else
+	movw	$0x6301, %ax			# enable DIMM 0 
+#endif // HAVE_FRAMEBUFFER
 #endif /* SIZE_ALL */
 
 	CALL_SP(write_pci_register)		# write register 0x63
