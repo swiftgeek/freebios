@@ -10,7 +10,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: vsprintf.c,v 1.5 2001/11/27 19:29:56 ebiederm Exp $";
+static char rcsid[] = "$Id: vsprintf.c,v 1.6 2002/12/14 06:29:57 aip Exp $";
 #endif
 
 #include <stdarg.h>
@@ -335,7 +335,9 @@ int vsprintf(char * buf, const char *fmt, va_list args)
 	int i;
 	str_buf = buf;
 	i = vtxprintf(str_tx_byte, fmt, args);
-	str_buf = 0;
+	/* maeder/Ispiri -- The null termination was missing a deference */
+	/*                  and was just zeroing out the pointer instead */
+	*str_buf = '\0';
 	return i;
 }
 
