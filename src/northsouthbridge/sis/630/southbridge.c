@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.30 2002/05/27 02:15:09 ollie Exp $
+ * $Id: southbridge.c,v 1.31 2002/06/05 09:09:37 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.30 2002/05/27 02:15:09 ollie Exp $";
+"$Id: southbridge.c,v 1.31 2002/06/05 09:09:37 ollie Exp $";
 #endif
 
 
@@ -247,13 +247,13 @@ static void
 timer0_fixup(void)
 {
 	/* select Timer 0, 16 Bit Access, Mode 3, Binary */
-	outb_p(0x43, 0x36);
+	outb_p(0x36, 0x43);
 
 	/* Load LSB, 0x00 */
-	outb_p(0x40, 0x00);
+	outb_p(0x00, 0x40);
 
 	/* Load MSB, 0x00 */
-	outb_p(0x40, 0x00);
+	outb_p(0x00, 0x40);
 }
 
 /* rtc_fixup: Fix up the Real Time Clock
