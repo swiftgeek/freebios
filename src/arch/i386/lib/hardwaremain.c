@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.4 2001/04/25 03:17:47 ollie Exp $
+ * $Id: hardwaremain.c,v 1.5 2001/06/08 17:18:42 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.4 2001/04/25 03:17:47 ollie Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.5 2001/06/08 17:18:42 rminnich Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -66,6 +66,18 @@ void intel_main()
 #ifdef CONFIGURE_L2_CACHE
 	int intel_l2_configure();
 #endif /* CONFIGURE_L2_CACHE */
+
+#ifdef CPU_FIXUP
+	// some cpus need a fixup done. This is the hook for doing that
+	// For now we call it after pci config and sizing. 
+	// we may move it earlier for speed. 
+	// Comment: the NEW_SUPERIO architecture is actually pretty good.
+	// I think we need to move to the same sort of architecture for
+	// everything: A config file generated sequence of calls 
+	// for initializing all the chips. We stick with this 
+	// for now -- rgm. 
+	void cpufixup(unsigned long totalram);
+#endif
 
 #ifdef UPDATE_MICROCODE
 	void intel_display_cpuid_microcode(void);
@@ -126,6 +138,10 @@ void intel_main()
 	if (!totalram)
 		totalram = 64 * 1024;
 
+#ifdef CPU_FIXUP
+	// cpu-dependent fixup. 
+	cpufixup(totalram);
+#endif
 	// Turn on cache before configuring the bus. 
 	printk(KERN_INFO "Enabling cache...");
 	intel_cache_on(0, totalram);
