@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.25 2002/05/27 02:15:09 ollie Exp $
+ * $Id: ipl.S,v 1.26 2002/05/27 08:47:12 ollie Exp $
  */
 
 #include "ipl.h"
@@ -127,7 +127,6 @@ check_row_column:
 
 	addw	%cx, %si			# sdram_type_bank[column + row * 4]
 	movb	-52(%si), %cl			# sdram_type_bank[column + row * 4 - 52]
-#endif
 
 #ifdef SIZE_ALL
 	movb	%ah, %bh			# Restore DIMM slot number from AH to BH
