@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.1 2002/05/31 08:45:54 ollie Exp $
+ * $Id: ipl.S,v 1.2 2002/07/03 06:39:43 ollie Exp $
  */
 
 #include "ipl.h"
@@ -116,7 +116,7 @@ sis630ipl_start:
 #else /* !STD_FLASH */
 #if (USE_DOC_MIL == 1) || (USE_DOC_2000_TSOP == 1)
 #	include "rom/doc_mil.inc"
-#else (USE_DOC_MIL_PLUS == 1)
+#elif (USE_DOC_MIL_PLUS == 1)
 #	include "rom/doc_mil_plus.inc"
 #endif
 #endif /* STD_FLASH */
