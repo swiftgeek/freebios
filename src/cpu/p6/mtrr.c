@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.13 2001/01/29 02:12:35 ollie Exp $
+ * $Id: mtrr.c,v 1.14 2001/02/08 16:17:38 rminnich Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.13 2001/01/29 02:12:35 ollie Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.14 2001/02/08 16:17:38 rminnich Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -40,6 +40,8 @@ static unsigned int mtrr_msr[] = {
 	MTRRfix4K_C0000_MSR, MTRRfix4K_C8000_MSR, MTRRfix4K_D0000_MSR, MTRRfix4K_D8000_MSR,
 	MTRRfix4K_E0000_MSR, MTRRfix4K_E8000_MSR, MTRRfix4K_F0000_MSR, MTRRfix4K_F8000_MSR,
 };
+
+#ifndef HAVE_MTRR_TABLE
 
 static unsigned char fixed_mtrr_values[][4] = {
 	/* MTRRfix64K_00000_MSR, defines memory range from 0KB to 512 KB, each byte cover 64KB area */
@@ -86,6 +88,10 @@ static unsigned char fixed_mtrr_values[][4] = {
 	{MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH},
 	{MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH, MTRR_TYPE_WRTHROUGH},
 };
+
+#else
+extern unsigned char fixed_mtrr_values[][4];
+#endif
 
 void
 intel_enable_fixed_mtrr()
@@ -238,6 +244,7 @@ void intel_set_mtrr(unsigned long rambase, unsigned long ramsizeK)
 #else /* ENABLE_FIXED_AND_VARIABLE_MTRRS */
 void intel_set_mtrr(unsigned long rambase, unsigned long ramsizeK)
 {
+	DBG("\n");
 	intel_set_var_mtrr(0, 0, ramsizeK * 1024, MTRR_TYPE_WRBACK);
 	intel_enable_var_mtrr();
 }
