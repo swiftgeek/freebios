@@ -24,7 +24,7 @@
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.1 2002/05/24 01:41:42 ollie Exp $";
+"$Id: southbridge.c,v 1.2 2002/06/05 09:09:48 ollie Exp $";
 #endif
 
 #include <printk.h>
@@ -206,13 +206,13 @@ static void
 timer0_fixup(void)
 {
 	/* select Timer 0, 16 Bit Access, Mode 3, Binary */
-	outb_p(0x43, 0x36);
+	outb_p(0x36, 0x43);
 
 	/* Load LSB, 0x00 */
-	outb_p(0x40, 0x00);
+	outb_p(0x00, 0x40);
 
 	/* Load MSB, 0x00 */
-	outb_p(0x40, 0x00);
+	outb_p(0x00, 0x40);
 }
 
 /* rtc_fixup: Fix up the Real Time Clock
