@@ -1,9 +1,11 @@
 #ifndef lint
-static char rcsid[] = "$Id: serial_subr.c,v 1.9 2001/11/27 19:29:56 ebiederm Exp $";
+static char rcsid[] = "$Id: serial_subr.c,v 1.10 2002/02/01 23:45:29 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
 #include <serial_subr.h>
+#include <printk.h>
+#include <pc80/mc146818rtc.h>
 
 /* Base Address */
 #ifndef TTYS0_BASE
@@ -155,7 +157,14 @@ inline void uart_init(unsigned base_port, unsigned divisor)
 
 void ttys0_init(void)
 {
-	uart_init(TTYS0_BASE, TTYS0_DIV);
+	static unsigned char div[8]={1,2,3,6,12,24,48,96};
+	int b_index=0;
+	unsigned int divisor=TTYS0_DIV;
+
+	if(get_option(&b_index,"baud_rate")==0) {
+		divisor=div[b_index];
+	}
+	uart_init(TTYS0_BASE, divisor);
 }
 
 void ttys0_tx_byte(unsigned char data) 

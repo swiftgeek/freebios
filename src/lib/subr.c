@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.17 2001/11/03 02:11:48 ebiederm Exp $
+ * $Id: subr.c,v 1.18 2002/02/01 23:45:29 ebiederm Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.17 2001/11/03 02:11:48 ebiederm Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.18 2002/02/01 23:45:29 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
@@ -14,6 +14,7 @@ static char rcsid[] = "$Id: subr.c,v 1.17 2001/11/03 02:11:48 ebiederm Exp $";
 #include <pci.h>
 #include <subr.h>
 #include <string.h>
+#include <pc80/mc146818rtc.h>
 
 #ifdef SERIAL_CONSOLE
 #include <serial_subr.h>
@@ -29,6 +30,8 @@ static char rcsid[] = "$Id: subr.c,v 1.17 2001/11/03 02:11:48 ebiederm Exp $";
 // initialize the display
 void displayinit(void)
 {
+	get_option(&console_loglevel, "debug_level");
+
 #ifdef VIDEO_CONSOLE
 	video_init();
 #endif
