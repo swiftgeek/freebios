@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: northbridge.c,v 1.4 2001/11/02 20:14:26 rminnich Exp $
+ * $Id: northbridge.c,v 1.5 2001/11/06 04:29:38 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: northbridge.c,v 1.4 2001/11/02 20:14:26 rminnich Exp $";
+"$Id: northbridge.c,v 1.5 2001/11/06 04:29:38 ollie Exp $";
 #endif
 
 
@@ -106,8 +106,15 @@ void framebuffer_on()
 	unsigned long devfn = PCI_DEVFN(0, 0);
 	u32 command;
 
-	/* enable legacy VGA register (0x3?4, 0x3?5), not actually needed */
 	devfn = PCI_DEVFN(2, 0);
+
+	/* Enable VGA Palette Snoop */
+	pcibios_read_config_word(0, devfn, 0x04, &command);
+	command |= 0x20;
+	pcibios_write_config_word(0, devfn, 0x04, command);
+
+	/* enable legacy VGA IO (0x3B0 - 0x3BB, 0x3C0 - 0x3DF) and MEM (0xA0000 - 0xBFFFF),
+	   needed for XFree86 3.3.6 */
 	pcibios_read_config_dword(0, devfn, 0x3e, &command);
 	command |= 0x08;
 	pcibios_write_config_dword(0, devfn, 0x3e, command);
