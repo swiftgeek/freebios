@@ -1,4 +1,4 @@
-/* $Id: l2_cache.c,v 1.11 2000/12/02 03:51:28 ollie Exp $ 
+/* $Id: l2_cache.c,v 1.12 2000/12/02 05:48:28 ollie Exp $ 
  *
  * Copyright   : (c) 2000 by Denis Dowling (dpd@alphalink.com.au)
  *
@@ -30,7 +30,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: l2_cache.c,v 1.11 2000/12/02 03:51:28 ollie Exp $";
+static char rcsid[] = "$Id: l2_cache.c,v 1.12 2000/12/02 05:48:28 ollie Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -38,7 +38,7 @@ static char rcsid[] = "$Id: l2_cache.c,v 1.11 2000/12/02 03:51:28 ollie Exp $";
 #include <cpu/p5/cpuid.h>
 
 /* Include debugging code and outputs */
-#define DEBUG
+//#define DEBUG
 #include <printk.h>
 
 static int signal_l2(unsigned int address_high,
