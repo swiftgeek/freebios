@@ -26,13 +26,14 @@
  *	2. SiS 730S Register Recommended Setting
  *	   Rev 1.0, Oct. 4, 2000
  *
- * $Id: raminit.inc,v 1.2 2001/08/24 16:47:35 rminnich Exp $
+ * $Id: raminit.inc,v 1.3 2001/11/06 04:32:05 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
 #define PCI_DATA_PORT		0xcfc
 
 #define NORTH_BRIDGE_BASE_ADDR	0x80000000
+#define LPC_BRIDGE_BASE_ADDR	0x80000800
 
 register_setting_start:
 	movl	$northbridge_init_table, %esi
@@ -43,9 +44,10 @@ init_northbridge:
 	lodsw	(%esi), %ax			# load the register address/value to %ax
 	xchgb	%al, %ah			# exchange address/values for write_common
 
-
+write_northbridge_register:			
 	/* Input: AH - register number. AL - register value. */
 	movl	$NORTH_BRIDGE_BASE_ADDR, %edx
+
 	movl	%eax, %ebx			# Save %eax to %ebx.
 
 	movzbl	%bh, %eax			# add register address to
@@ -59,12 +61,29 @@ init_northbridge:
 	addb	%al, %dl
 	movb	%bl, %al
 	outb	%al, %dx
-
 	loopnz	init_northbridge
 
+#ifdef DISABLE_INTERNAL_DEVICES
+	movw	$0x7c0e, %ax			# Writting undocumented LPC register
+write_lpc_register:
+	/* Input: AH - register number. AL - register value. */
+	movl	$LPC_BRIDGE_BASE_ADDR, %edx
+	movl	%eax, %ebx			# Save %eax to %ebx.
+
+	movzbl	%bh, %eax			# add register address to
+	addl	%edx, %eax			# PCI base address
+
+	movw	$PCI_COMMAND_PORT, %dx
+	outl	%eax, %dx
+
+	movw	$PCI_DATA_PORT, %dx
+	andb	$0x03, %al
+	addb	%al, %dl
+	movb	%bl, %al
+	outb	%al, %dx
+#endif /* DISABLE_INTERNAL_DEVICES */
+
 	jmp	register_setting_end
-
-
 
 #include "730s_regs.inc"
 
