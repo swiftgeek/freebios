@@ -270,16 +270,12 @@ sizeram:
 	roll	$1, %esi
 	movb	$7, (%esi)
 	cmpb	$0, (%edi)
+	// If @0 is unchanged, then we have four banks.
 	jz	1f /* 4 banks */
-	/* NOTE 03-22-01 RGM
-	 * I THINK THIS SHOULD BE 0x1800000!
-         */
-	orl	$0x1800000, %ecx
-	jmp	2f
+	// If @0 got overwritten, then we only have two banks.
 	/* clear 4 banks */
-1:
 	andb	$0xfe, %cl
-2: 
+1:
 	WRITE_MCR0
 	
 /* Next line ASSUMES that eax contains 8000000xx
@@ -330,7 +326,7 @@ sizeram:
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.21 2001/03/27 00:41:39 rminnich Exp $
+ * $Id: ipl.S,v 1.22 2001/03/28 22:32:07 rminnich Exp $
  */
 #define DOC_WIN_SEG		0xfe00
 #define DOC_STACK		0x04000
