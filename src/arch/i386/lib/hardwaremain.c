@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.19 2002/03/28 17:42:18 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.20 2002/03/29 03:57:56 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.19 2002/03/28 17:42:18 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.20 2002/03/29 03:57:56 rminnich Exp $";
 #endif
 
 #include <arch/io.h>
@@ -275,7 +275,19 @@ void hardwaremain(int boot_complete)
 	post_code(0x88);
 
 	pci_enable();
+	post_code(0x89);
+
+	// it's not clear where I should do this. We'll try here. 
+	// Seems to be ok in practice.
+#if CONFIG_REALMODE_IDT == 1
+	printk_debug("INSTALL REAL-MODE IDT\n");
+	setup_realmode_idt();
+#endif
+#if CONFIG_VGABIOS == 1
+	printk_debug("DO THE VGA BIOS\n");
+	do_vgabios();
 	post_code(0x90);
+#endif
 
 	// generic mainboard fixup
 	mainboard_fixup();
@@ -320,14 +332,6 @@ void hardwaremain(int boot_complete)
 	/* make certain we are the only cpu running in linuxBIOS */
 	wait_for_other_cpus();
 
-#if CONFIG_REALMODE_IDT == 1
-	printk_debug("INSTALL REAL-MODE IDT\n");
-	setup_realmode_idt();
-#endif
-#if CONFIG_VGABIOS == 1
-	printk_debug("DO THE VGA BIOS\n");
-	do_vgabios();
-#endif
 	/* Now that we have collected all of our information
 	 * write our configuration tables.
 	 */
