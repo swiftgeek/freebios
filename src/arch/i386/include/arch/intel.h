@@ -27,7 +27,7 @@ it with the version available from LANL.
 /*
  * Bootstrap code for the Intel
  *
- * $Id: intel.h,v 1.1 2001/08/07 19:46:36 ebiederm Exp $
+ * $Id: intel.h,v 1.2 2002/11/10 06:25:45 aip Exp $
  *
  */
 
@@ -354,9 +354,20 @@ NO FUNCTIONS YET!
 
 
 /* originally this macro was from STPC BIOS */
+/* kevin/Ispiri - changed to default to serial port POST codes */
+#ifndef SERIAL_POST
 #define	intel_chip_post_macro(value)			 \
 	movb	$value, %al				; \
 	outb	%al, $0x80
+#else
+#define	intel_chip_post_macro(value)		\
+	mov	$'<', %al ; \
+	CALLSP(console_tx_al) ; \
+	mov	$value, %al ; \
+	CALLSP(console_tx_hex8) ; \
+	mov	$'>', %al ; \
+	CALLSP(console_tx_al)
+#endif
 
 #define INTEL_PDATA_MAGIC 0xdeadbeef
 
