@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.19 2001/04/12 10:55:41 ollie Exp $
+ * $Id: southbridge.c,v 1.20 2001/04/12 20:15:38 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.19 2001/04/12 10:55:41 ollie Exp $";
+"$Id: southbridge.c,v 1.20 2001/04/12 20:15:38 rminnich Exp $";
 #endif
 
 
@@ -23,7 +23,7 @@ void keyboard_on()
 {
 	u8 regval;
 	struct pci_dev *pcidev;
-
+	void pc_keyboard_init(void);
 	/* turn on sis630 keyboard/mouse controller */
 	pcidev = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503, (void *)NULL);
 	if (pcidev != NULL) {
@@ -182,6 +182,7 @@ static void
 rtc_fixup(void)
 {
 	volatile u8 dummy;
+	u8 regval;
 	struct pci_dev *isa_bridge;
 
 	isa_bridge = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503,
