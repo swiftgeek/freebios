@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.16 2001/08/08 02:45:09 ebiederm Exp $
+ * $Id: mtrr.c,v 1.17 2001/08/21 02:37:34 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.16 2001/08/08 02:45:09 ebiederm Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.17 2001/08/21 02:37:34 ebiederm Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -214,8 +214,6 @@ static __inline__ unsigned int fms(unsigned int x)
  * or a 156MB (128MB + 32MB - 4MB SMA) example:
  *	ramsize = 156MB == 128MB WB (at 0MB) + 32MB WB (at 128MB) + 4MB UC (at 156MB)
  */
-#ifdef INTEL_PPRO_MTRR
-
 /* 2 MTRRS are reserved for the operating system */
 #define BIOS_MTRRS 6
 #define OS_MTRRS   2
@@ -291,4 +289,3 @@ void setup_mtrrs(unsigned long ramsizeK)
 	intel_enable_fixed_mtrr();
 	intel_enable_var_mtrr();
 }
-#endif /* INTEL_PPRO_MTRR */
