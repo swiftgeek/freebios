@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.31 2003/04/09 00:01:05 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.32 2003/04/21 17:56:09 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.31 2003/04/09 00:01:05 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.32 2003/04/21 17:56:09 rminnich Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
@@ -237,6 +237,9 @@ void write_tables(struct mem_range *mem)
 
 void hardwaremain(int boot_complete)
 {
+#if CONFIG_ASSIGNIRQ == 1
+  void assignirq(void);
+#endif
 	/* Processor ID of the BOOT cpu (i.e. the one running this code) */
 	unsigned long boot_cpu;
 	int boot_index;
@@ -358,6 +361,9 @@ void hardwaremain(int boot_complete)
 
 	/* to do: intel_serial_on(); */
 	final_mainboard_fixup();
+#if CONFIG_ASSIGNIRQ == 1
+	assignirq();
+#endif
 	post_code(0xec);
 
 
