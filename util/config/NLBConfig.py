@@ -8,7 +8,7 @@
 # specified by the 'target' command in the user's configfile.  For more
 # info, see .../freebios/Documentation/Config
 
-# $Id: NLBConfig.py,v 1.38 2003/04/14 22:54:36 rminnich Exp $
+# $Id: NLBConfig.py,v 1.39 2003/04/14 23:45:42 ebiederm Exp $
 # Author:
 # Modified by Jan Kok to improve readability of Makefile, etc.
 import sys
@@ -1056,8 +1056,7 @@ CPUFLAGS := $(foreach _var_,$(VARIABLES),$(call D_item,$(_var_)))
 
 	# print out all the object dependencies
 	file.write("\n# object dependencies (objectrules:)\n")
-	# There is ALWAYS a crt0.o
-	#file.write("OBJECTS-1 := crt0.o\n")
+	file.write("OBJECTS-1 :=\n")
 	file.write("DRIVERS-1 :=\n")
 	for objrule in objectrules:
 		obj_name = objrule[0]
