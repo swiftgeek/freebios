@@ -1,4 +1,4 @@
-$Id: linux-2.4.17-smartcore-p5,v 1.1 2002/01/22 17:26:58 rminnich Exp $
+$Id: linux-2.4.17-smartcore-p5,v 1.2 2002/03/08 00:28:23 rminnich Exp $
 
 --- linux-2.4.17-orig/drivers/ide/ide-pci.c	Thu Oct 25 14:53:47 2001
 +++ linux-2.4.17-smartcore/drivers/ide/ide-pci.c	Wed Jan  9 11:03:18 2002
@@ -151,7 +151,7 @@ $Id: linux-2.4.17-smartcore-p5,v 1.1 2002/01/22 17:26:58 rminnich Exp $
 +
 +struct linuxbios_control controls[] = {
 +#ifdef CONFIG_LINUXBIOS_PM_SIS503
-+	{PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503, sis503_off, sis503_reset}
++	{PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503, sis503_off, sis503_reset},
 +#endif
 +#ifdef CONFIG_LINUXBIOS_PM_PIIX4E
 +	{PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82371AB_3, 
