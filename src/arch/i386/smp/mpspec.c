@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: mpspec.c,v 1.2 2001/08/15 21:30:08 ebiederm Exp $";
+static char rcsid[] = "$Id: mpspec.c,v 1.3 2001/10/15 18:19:40 rminnich Exp $";
 #endif
 
 #include <smp/start_stop.h>
@@ -90,7 +90,8 @@ void smp_write_processor(struct mp_config_table *mc,
  * Having the proper apicid's in the table so the non-bootstrap
  *  processors can be woken up should be enough.
  */
-void smp_write_processors(struct mp_config_table *mc)
+void smp_write_processors(struct mp_config_table *mc, 
+			unsigned long *processor_map)
 {
 	int i;
 	int processor_id;
@@ -105,7 +106,7 @@ void smp_write_processors(struct mp_config_table *mc)
 	cpu_feature_flags = edx;
 	for(i = 0; i < MAX_CPUS; i++) {
 		smp_write_processor(mc, i, apic_version,
-			((processor_id == i)? CPU_BOOTPROCESSOR:0) | CPU_ENABLED,
+			processor_map[i],
 			cpu_features, cpu_feature_flags
 		);
 	
