@@ -1,4 +1,4 @@
-/* $Id: l2_cache.c,v 1.14 2000/12/06 11:02:35 ollie Exp $ 
+/* $Id: l2_cache.c,v 1.15 2001/04/12 18:36:51 rminnich Exp $ 
  *
  * Copyright   : (c) 2000 by Denis Dowling (dpd@alphalink.com.au)
  *
@@ -30,7 +30,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: l2_cache.c,v 1.14 2000/12/06 11:02:35 ollie Exp $";
+static char rcsid[] = "$Id: l2_cache.c,v 1.15 2001/04/12 18:36:51 rminnich Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -56,7 +56,7 @@ static int calculate_l2_cache_size(void);
 static int calculate_l2_physical_address_range(void);
 static int calculate_l2_ecc(void);
 
-static void cache_disable(void)
+void cache_disable(void)
 {
 	unsigned int tmp;
 
@@ -72,7 +72,7 @@ static void cache_disable(void)
 		      : "=r" (tmp) : : "memory");
 }
 
-static void cache_enable(void)
+void cache_enable(void)
 {
 	unsigned int tmp;
 
