@@ -26,7 +26,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.5 2000/12/04 06:37:06 ollie Exp $
+ * $Id: raminit.inc,v 1.6 2001/08/24 16:47:35 rminnich Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -42,16 +42,11 @@ register_setting_start:
 init_northbridge:
 	lodsw	(%esi), %ax			# load the register address/value to %ax
 	xchgb	%al, %ah			# exchange address/values for write_common
-	call	write_northbridge_register
-	loopnz	init_northbridge
-
-	jmp	register_setting_end
 
 write_northbridge_register:			
 	/* Input: AH - register number. AL - register value. */
 	movl	$NORTH_BRIDGE_BASE_ADDR, %edx
 
-write_common:
 	movl	%eax, %ebx			# Save %eax to %ebx.
 
 	movzbl	%bh, %eax			# add register address to
@@ -65,7 +60,9 @@ write_common:
 	addb	%al, %dl
 	movb	%bl, %al
 	outb	%al, %dx
-	ret					# End of write_[lpc|pci]_reg
+	loopnz	init_northbridge
+
+	jmp	register_setting_end
 
 #ifdef SIS630S
 #include "630s_regs.inc"

@@ -26,7 +26,7 @@
  *	2. SiS 730S Register Recommended Setting
  *	   Rev 1.0, Oct. 4, 2000
  *
- * $Id: raminit.inc,v 1.1 2001/01/29 07:58:42 ollie Exp $
+ * $Id: raminit.inc,v 1.2 2001/08/24 16:47:35 rminnich Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -42,16 +42,10 @@ register_setting_start:
 init_northbridge:
 	lodsw	(%esi), %ax			# load the register address/value to %ax
 	xchgb	%al, %ah			# exchange address/values for write_common
-	call	write_northbridge_register
-	loopnz	init_northbridge
 
-	jmp	register_setting_end
 
-write_northbridge_register:			
 	/* Input: AH - register number. AL - register value. */
 	movl	$NORTH_BRIDGE_BASE_ADDR, %edx
-
-write_common:
 	movl	%eax, %ebx			# Save %eax to %ebx.
 
 	movzbl	%bh, %eax			# add register address to
@@ -65,7 +59,12 @@ write_common:
 	addb	%al, %dl
 	movb	%bl, %al
 	outb	%al, %dx
-	ret					# End of write_[lpc|pci]_reg
+
+	loopnz	init_northbridge
+
+	jmp	register_setting_end
+
+
 
 #include "730s_regs.inc"
 
