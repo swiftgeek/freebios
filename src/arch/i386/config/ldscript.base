@@ -14,7 +14,7 @@
  * Bootstrap code for the STPC Consumer
  * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.
  *
- * $Id: ldscript.base,v 1.1 2001/03/23 21:03:12 ebiederm Exp $
+ * $Id: ldscript.base,v 1.2 2001/03/26 21:49:19 rminnich Exp $
  *
  */
 
@@ -95,8 +95,8 @@ SECTIONS
 
 	.heap (.): {
 		_heap = .;
-		/* Reserve 64K for the heap */
-		. = . + 0x10000;
+		/* Reserve 256K for the heap */
+		. = . + 0x40000;
 		_eheap = .;
 	}
 	.stack (.) : {
