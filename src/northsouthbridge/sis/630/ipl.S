@@ -25,7 +25,7 @@
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium
  *
- * $Id: ipl.S,v 1.9 2000/12/01 03:33:59 ollie Exp $
+ * $Id: ipl.S,v 1.10 2000/12/01 04:35:21 ollie Exp $
  */
 
 #include "ipl.h"
@@ -235,7 +235,9 @@ flash_command:
 
 flash_address:
 	shll	$0x08, %ebx
-        movw	$0x03, %cx
+        movb	$0x03, %cl			# this one is DANGEROUS but I am
+						# sure the upper 3 bytes == 0x00
+	
 	movb	$0x05, 0x04(%di)		# start address cycle
 0:
 	movb	%bl, (%si)			# write address to CDSNIO
@@ -248,7 +250,8 @@ wait_for_flash_ready:
 	/* delay by reding NOP register before polling the FLASH READY bit,
 	   this is inlined to save a call/ret pair */
 doc_delay:
-	movw	$4, %cx
+	movb	$0x04, %cl			# this one is DANGEROUS but I am
+						# sure the upper 3 bytes == 0x00
 0:
 	movb	0x20(%di), %al			# read DOC NOP retisger
 	loop	0b				# four times
