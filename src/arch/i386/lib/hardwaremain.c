@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.17 2002/02/05 00:06:19 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.18 2002/03/27 21:25:27 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.17 2002/02/05 00:06:19 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.18 2002/03/27 21:25:27 rminnich Exp $";
 #endif
 
 #include <arch/io.h>
@@ -320,6 +320,10 @@ void hardwaremain(int boot_complete)
 	/* make certain we are the only cpu running in linuxBIOS */
 	wait_for_other_cpus();
 
+#if CONFIG_VGABIOS == 1
+	printk_debug("DO THE VGA BIOS\n");
+	do_vgabios();
+#endif
 	/* Now that we have collected all of our information
 	 * write our configuration tables.
 	 */
