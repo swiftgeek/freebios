@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: mpspec.c,v 1.4 2001/11/13 03:43:35 ebiederm Exp $";
+static char rcsid[] = "$Id: mpspec.c,v 1.5 2002/01/08 07:04:35 ebiederm Exp $";
 #endif
 
 #include <smp/start_stop.h>
@@ -22,9 +22,15 @@ unsigned char smp_compute_checksum(void *v, int len)
 	return checksum;
 }
 
-void smp_write_floating_table(void *v)
+void *smp_write_floating_table(unsigned long addr)
 {
 	struct intel_mp_floating *mf;
+	void *v;
+	
+	/* 16 byte align the table address */
+	addr += 15;
+	addr &= ~15;
+	v = (void *)addr;
 
 	mf = v;
 	mf->mpf_signature[0] = '_';
@@ -41,6 +47,7 @@ void smp_write_floating_table(void *v)
 	mf->mpf_feature4 = 0;
 	mf->mpf_feature5 = 0;
 	mf->mpf_checksum = smp_compute_checksum(mf, mf->mpf_length*16);
+	return v;
 }
 
 void *smp_next_mpc_entry(struct mp_config_table *mc)
