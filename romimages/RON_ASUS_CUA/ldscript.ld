@@ -2,7 +2,7 @@
  * Bootstrap code for the STPC Consumer
  * Copyright (c) 1999 by Net Insight AB. All Rights Reserved.
  *
- * $Id: ldscript.ld,v 1.1 2000/12/13 03:49:20 rminnich Exp $
+ * $Id: ldscript.ld,v 1.2 2000/12/15 00:57:59 rminnich Exp $
  *
  */
 /* oh, barf. This won't work if all you use is .o's.  -- RGM */
@@ -37,7 +37,7 @@ _RAMBASE	= 0x05000;
 _KERNSTK	= 0x90000;
 
 /* should be parameterized but is not, yuck! */
-_ROMBASE	= 0x80000;
+_ROMBASE	= 0xf0000;
 
 /*
  *	Entry point is not really nececary, since the mkrom(8)
