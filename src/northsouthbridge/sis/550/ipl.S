@@ -26,16 +26,15 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.7 2002/02/20 02:30:27 ollie Exp $
+ * $Id: ipl.S,v 1.8 2002/02/20 02:35:31 ollie Exp $
  */
 
 #include "ipl.h"
 
-#define SIS550_BUG
 .code16
 
 #ifdef STD_FLASH
-.org 0xfe00
+.org 0xfc00
 #endif
 
 #undef SIZE_ALL
@@ -350,8 +349,8 @@ pci_init_table:
 #ifdef STD_FLASH
 	.org 0xfff0
 reset_vector:
-	.byte	0xea				# jmp to f000:fe00, where IPL
-	.word	0xfe00, 0xf000			# starts in Standard Flash
+	.byte	0xea				# jmp to f000:fc00, where IPL
+	.word	0xfc00, 0xf000			# starts in Standard Flash
 #else /* !STD_FLASH i.e. DoC Mil */
 #if (USE_DOC_MIL == 1)
 	.org 0x1f0

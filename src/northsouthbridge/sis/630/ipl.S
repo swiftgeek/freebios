@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.23 2002/02/20 02:30:29 ollie Exp $
+ * $Id: ipl.S,v 1.24 2002/02/20 02:35:31 ollie Exp $
  */
 
 #include "ipl.h"
@@ -34,7 +34,7 @@
 .code16
 
 #ifdef STD_FLASH
-.org 0xfe00
+.org 0xfc00
 #endif
 
 #define SIZE_ALL
@@ -47,6 +47,9 @@ sis630spd_start:
 	movw	%cs, %ax			# makes data segment ==
 	movw	%ax, %ds			#       code segment
 
+	movb	$0x01, %al
+	outb	%al, $0x80
+	
 	movw	$0x408a, %ax			# ACPI Enable.
 	CALL_SP(write_lpc_register)		# (for use of SMBus)
 
@@ -326,8 +329,8 @@ pci_init_table:
 #ifdef STD_FLASH
 	.org 0xfff0
 reset_vector:
-	.byte	0xea				# jmp to f000:fe00, where IPL
-	.word	0xfe00, 0xf000			# starts in Standard Flash
+	.byte	0xea				# jmp to f000:fc00, where IPL
+	.word	0xfc00, 0xf000			# starts in Standard Flash
 #else /* !STD_FLASH i.e. DoC Mil */
 #if (USE_DOC_MIL == 1)
 	.org 0x1f0
