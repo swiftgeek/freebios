@@ -25,7 +25,7 @@
  *	3. PC SDRAM Serial Presence Detect (SPD) Specification Rev 1.2B
  *	4. Booting From the DiskOnChip Millennium
  *
- * $Id: ipl.S,v 1.1 2000/10/17 13:37:01 rminnich Exp $
+ * $Id: ipl.S,v 1.2 2000/10/26 03:04:28 ollie Exp $
  */
 
 #include "ipl.h"
@@ -194,12 +194,12 @@ sis630ipl_start:
 	movw	$SPL_RAM_SEG, %ax
 	movw	%ax, %es
 
-	movw	$sis950_init_table, %si		# enable flash write on
-	movw	$0x05, %cx			# SiS 950 LPC
-	movw	$0x2e, %dx
+	movw	$sis950_init_table, %si		# unlock SiS 950 LPC
+	movw	$0x05, %cx			# select Clock Selection
+	movw	$0x2e, %dx			# and Flash ROM I/F 
 	rep
 	outsb
-	movb	$0xfc, %al
+	movb	$0xfc, %al			# enable write, CLKIN = 24 MHZ
 	outb	%al, $0x2f
 
 	xorw	%sp, %sp			# clear %sp
