@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.5 2000/11/28 03:44:45 rminnich Exp $
+ * $Id: subr.c,v 1.6 2000/11/28 05:54:04 rminnich Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.5 2000/11/28 03:44:45 rminnich Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.6 2000/11/28 05:54:04 rminnich Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -107,7 +107,10 @@ void error(char errmsg[])
 {
 	display(errmsg);
 
+/* what a bad idea -- this wipes out the most recent POST!
+ * comment out unless someone comes up with a great reason to keep it.
 	intel_post(0xee);
+ */
 
 	while (1);		/* Halt */
 }
