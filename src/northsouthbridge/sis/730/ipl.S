@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.3 2001/06/15 04:22:55 ollie Exp $
+ * $Id: ipl.S,v 1.4 2001/06/20 06:57:35 ollie Exp $
  */
 
 #include "ipl.h"
@@ -185,7 +185,7 @@ no_sdram:
 no_sdram:
 #ifdef HAVE_FRAMEBUFFER
 	movb	$0x63, %ah			# enable DIMM 0 and
-	movw	$SMA_SIZE + $0x01, %ax		# enable SMA 8 MB for VGA
+	movb	$(SMA_SIZE + 0x01), %al		# enable SMA 8 MB for VGA
 #else /* HAVE_FRAMEBUFFER */
 	movw	$0x6301, %ax			# enable DIMM 0 
 #endif /* HAVE_FRAMEBUFFER */
