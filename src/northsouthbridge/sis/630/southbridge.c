@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.11 2000/11/27 06:37:33 ollie Exp $
+ * $Id: southbridge.c,v 1.12 2000/11/28 03:40:10 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.11 2000/11/27 06:37:33 ollie Exp $";
+"$Id: southbridge.c,v 1.12 2000/11/28 03:40:10 rminnich Exp $";
 #endif
 
 
@@ -105,11 +105,6 @@ final_southbridge_fixup()
 		unsigned short acpibase = 0xc000, temp;
 		int i;
 		// put symbolic names in here soon ... so much typing, so little time. 
-
-		// remap IRQ for PCI -- this is exactly what the BIOS does now. 
-		pci_write_config_byte(pcidev, 0x42, 0xa);
-		pci_write_config_byte(pcidev, 0x43, 0xb);
-		pci_write_config_byte(pcidev, 0x44, 0xc);
 
 		// now set up legacy serial interrupts
 		// that doesn't mean serial ports -- it's a serial interrupt
