@@ -188,7 +188,7 @@ sizeram:
 	movl	$0x8000007c, %eax
 	movb	$0xf8, %dl
 	outl	%eax, %dx
-	movl	$0x2423c411, %eax
+	movl	$0x242bc411, %eax
 	movb	$0xfc, %dl
 	outl	%eax, %dx
 	/*
@@ -229,7 +229,7 @@ sizeram:
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.9 2000/12/13 03:49:26 rminnich Exp $
+ * $Id: ipl.S,v 1.10 2000/12/19 05:51:50 rminnich Exp $
  */
 #define DOC_WIN_SEG		0xfe00
 #define DOC_STACK		0x04000
