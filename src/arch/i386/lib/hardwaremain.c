@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.15 2002/01/30 20:50:53 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.16 2002/01/30 21:24:19 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.15 2002/01/30 20:50:53 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.16 2002/01/30 21:24:19 rminnich Exp $";
 #endif
 
 #include <arch/io.h>
@@ -205,7 +205,7 @@ void hardwaremain(int boot_complete)
 	 * for now -- rgm. 
 	 */
 #ifdef USE_NEW_SUPERIO_INTERFACE
-	extern struct superio all_superio[];
+	extern struct superio *all_superio[];
 	extern int nsuperio;
 	extern void handle_superio(int pass, struct superio *s, int nsuperio);
 #endif
