@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.4 2000/10/17 22:58:51 rminnich Exp $
+ * $Id: subr.c,v 1.5 2000/11/28 03:44:45 rminnich Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.4 2000/10/17 22:58:51 rminnich Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.5 2000/11/28 03:44:45 rminnich Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -185,7 +185,6 @@ void intel_interrupts_on()
 }
 
 
-#ifdef NEWPCI
 /* These functions should be chip-set independent -tds */
 void intel_zero_irq_settings(void)
 {
@@ -260,4 +259,3 @@ void intel_copy_irq_routing_table(void)
 #endif
 }
 
-#endif /* NEWPCI */
