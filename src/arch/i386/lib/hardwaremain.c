@@ -23,17 +23,22 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.26 2002/07/16 23:02:53 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.27 2002/07/16 23:16:31 rminnich Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.26 2002/07/16 23:02:53 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.27 2002/07/16 23:16:31 rminnich Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
 #define MAX_PHYSICAL_CPUS MAX_CPUS
+#endif
+
+#if USE_ELF_BOOT
+#include <rom/read_bytes.h>
+#include <boot/elf.h>
 #endif
 
 #include <arch/io.h>

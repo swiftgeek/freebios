@@ -11,7 +11,7 @@
  * the wisdom of Tom's recommendations ...
  */
 #ifndef lint
-static char rcsid[] = "$Id: newpci.c,v 1.20 2002/07/02 07:13:10 ebiederm Exp $";
+static char rcsid[] = "$Id: newpci.c,v 1.21 2002/07/16 23:16:31 rminnich Exp $";
 #endif
 
 #include <pci.h>
@@ -842,7 +842,7 @@ void
 handle_superio(int pass, struct superio *all_superio[], int nsuperio)
 {
 	int i;
-	struct superio *s;
+	struct superio *s = 0;
 
 	printk_debug("handle_superio start, s %p nsuperio %d s->super %p\n",
 		     s, nsuperio, s->super);
