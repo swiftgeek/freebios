@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.13 2002/02/20 02:35:31 ollie Exp $
+ * $Id: ipl.S,v 1.14 2002/02/20 02:42:27 ollie Exp $
  */
 
 #include "ipl.h"
@@ -220,9 +220,9 @@ sis730ipl_start:
 #include "rom/std_flash.inc"
 #else /* !STD_FLASH */
 #include "unlock_flash.inc"
-#if defined(USE_DOC_MIL) || defined(USE_DOC_2000_TSOP)
+#if (USE_DOC_MIL == 1) || (USE_DOC_2000_TSOP == 1)
 #	include "rom/doc_mil.inc"
-#elif defined(USE_DOC_MIL_PLUS)
+#elif (USE_DOC_MIL_PLUS == 1)
 #	include "rom/doc_mil_plus.inc"
 #endif
 #endif /* STD_FLASH */
@@ -337,9 +337,9 @@ reset_vector:
 	.byte	0xea				# jmp to f000:fc00, where IPL
 	.word	0xfc00, 0xf000			# starts in Standard Flash
 #else /* !STD_FLASH i.e. DoC Mil */
-#if defined(USE_DOC_MIL)
+#if (USE_DOC_MIL == 1)
 	.org 0x1f0
-#elif defined(USE_DOC_2000_TSOP) || defined(USE_DOC_MIL_PLUS)
+#elif (USE_DOC_2000_TSOP == 1) || (USE_DOC_MIL_PLUS == 1)
 	.org 0x3f0
 #endif
 reset_vector:
