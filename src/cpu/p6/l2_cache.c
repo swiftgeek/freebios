@@ -1,4 +1,4 @@
-/* $Id: l2_cache.c,v 1.4 2000/11/25 01:07:15 ollie Exp $ 
+/* $Id: l2_cache.c,v 1.5 2000/11/25 04:13:05 rminnich Exp $ 
  *
  * Copyright   : (c) 2000 by Denis Dowling (dpd@alphalink.com.au)
  *
@@ -87,6 +87,8 @@ int intel_l2_configure()
 	unsigned int eax, ebx, ecx, edx;
 	int signature, tmp;
 	int cache_size;
+
+	cache_disable();
 
 	intel_cpuid(0, &eax, &ebx, &ecx, &edx);
 
