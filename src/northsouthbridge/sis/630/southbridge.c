@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.20 2001/04/12 20:15:38 rminnich Exp $
+ * $Id: southbridge.c,v 1.21 2001/04/13 04:17:45 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.20 2001/04/12 20:15:38 rminnich Exp $";
+"$Id: southbridge.c,v 1.21 2001/04/13 04:17:45 ollie Exp $";
 #endif
 
 
@@ -199,7 +199,7 @@ rtc_fixup(void)
 
 	/* Select 24 HR time */
 	outb_p(0x0B, 0x70);
-	outb_p(0x26, 0x71);
+	outb_p(0x02, 0x71);
 
 	/* Clear Checksum Error */
 	outb_p(0x0D, 0x70);
