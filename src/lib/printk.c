@@ -6,7 +6,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: printk.c,v 1.4 2001/08/29 16:22:46 rminnich Exp $";
+static char rcsid[] = "$Id: printk.c,v 1.5 2001/08/29 16:23:51 rminnich Exp $";
 #endif
 
 //typedef void * va_list;
@@ -14,6 +14,8 @@ static char rcsid[] = "$Id: printk.c,v 1.4 2001/08/29 16:22:46 rminnich Exp $";
 #include <stdarg.h>
 #include <smp/spinlock.h>
 
+// KEEP THIS GLOBAL. 
+// I need the address so I can watch it with the ARIUM hardware. RGM.
 char log_buf[1024];
 
 /* printk's without a loglevel use this.. */
