@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
- /* * $Id: spd_82801.c,v 1.1 2002/03/25 05:14:21 rminnich Exp $*/
+ /* * $Id: spd_82801.c,v 1.2 2002/03/27 03:37:14 rminnich Exp $*/
  /*
  * 82801Support code by Eric Beiderman of lnxi.com
  */
@@ -234,8 +234,10 @@ main()
 
 	for(slot = 1; slot < 0xff; slot += 2) {
 		unsigned char val;
-		if (slot == 0x6a)
+		if (slot == 0x67) {
+			slot = 0x71;
 			continue;
+		}
 		smbus_read_byte(slot, 0, &val);
 		printf("slot 0x%x val 0x%x\n", slot, val);
 	}
