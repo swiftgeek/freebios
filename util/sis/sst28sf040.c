@@ -22,7 +22,7 @@
  * Reference:
  *	4 MEgabit (512K x 8) SuperFlash EEPROM, SST28SF040 data sheet
  *
- * $Id: sst28sf040.c,v 1.1 2000/11/06 01:53:36 ollie Exp $
+ * $Id: sst28sf040.c,v 1.2 2001/02/07 16:10:54 rminnich Exp $
  */
 
 #include "flash.h"
@@ -105,7 +105,9 @@ int probe_28sf040 (struct flashchip * flash)
 	usleep(10);
 
 	*bios = READ_ID;
+	usleep(10);
 	id1 = *(unsigned char *) bios;
+	usleep(10);
 	id2 = *(unsigned char *) (bios + 0x01);
 
 	*bios = RESET;
