@@ -22,7 +22,7 @@
  * Reference:
  *	MX29F002/002N data sheet
  *
- * $Id: mx29f002.c,v 1.3 2002/04/09 23:57:21 rminnich Exp $
+ * $Id: mx29f002.c,v 1.4 2003/02/11 16:09:12 rminnich Exp $
  */
 
 #include "flash.h"
@@ -44,7 +44,7 @@ int probe_29f002 (struct flashchip * flash)
 
 	myusec_delay(10);
 
-	printf(__FUNCTION__ "id1 %d, id2 %d\n", id1, id2);
+	printf("%s: id1 %d, id2 %d\n", __FUNCTION__, id1, id2);
 	if (id1 == flash->manufacture_id && id2 == flash->model_id)
 		return 1;
 
