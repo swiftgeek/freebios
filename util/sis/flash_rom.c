@@ -23,7 +23,7 @@
  *	1. SiS 630 Specification
  *	2. SiS 950 Specification
  *
- * $Id: flash_rom.c,v 1.3 2001/02/07 16:03:52 rminnich Exp $
+ * $Id: flash_rom.c,v 1.4 2001/11/30 09:51:24 ollie Exp $
  */
 
 #include <errno.h>
@@ -67,8 +67,8 @@ int enable_flash_sis630 (void)
     b = inb(0x0cfc) | 0x0b;
     outb(b, 0xcfc);
     /* Flash write enable on SiS 540/630 */
-    outl(0x80000844, 0x0cf8);
-    b = inb(0x0cfd) | 0x40;
+    outl(0x80000845, 0x0cf8);
+    b = inb(0x0cfd) & 0x40;
     outb(b, 0xcfd);
 
     /* The same thing on SiS 950 SuperIO side */
