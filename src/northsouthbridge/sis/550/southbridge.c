@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.2 2001/05/08 02:43:15 ollie Exp $
+ * $Id: southbridge.c,v 1.3 2001/05/21 04:12:04 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.2 2001/05/08 02:43:15 ollie Exp $";
+"$Id: southbridge.c,v 1.3 2001/05/21 04:12:04 ollie Exp $";
 #endif
 
 
@@ -96,6 +96,19 @@ serial_irq_fixedup(void)
 }
 
 static void
+south_fixup(void)
+{
+	struct pci_dev *pcidev;
+
+	pcidev = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503, (void *)NULL);
+	if (pcidev != NULL) {
+	    u8 reg;
+	    pci_read_config_word(pcidev, 0x77, &temp);
+	    pci_write_config_byte(pci_dev, 0x77, temp & 0xEF);
+	}
+}
+
+static void
 acpi_fixup(void)
 {
 	struct pci_dev *pcidev;
@@ -157,6 +170,9 @@ final_southbridge_fixup()
 
 	serial_irq_fixedup();
 	acpi_fixup();
+
+	/* Delay transaction, experimental */
+	south_fixup();
 
 	DBG("Southbridge fixup done for SIS 503\n");
 }

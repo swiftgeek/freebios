@@ -24,7 +24,7 @@
  *	2. SiS 550A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 550_regs.inc,v 1.1 2001/04/25 03:38:49 ollie Exp $
+ * $Id: 550_regs.inc,v 1.2 2001/05/21 04:12:04 ollie Exp $
  */
 
 northbridge_init_table:
@@ -65,7 +65,10 @@ northbridge_init_table:
 //	.byte	0x6A,	0xC0	#
 //	.byte	0x6B,	0x01	# 0x00 -> 66/133 MHZ, 0x01 -> 100 MHZ
 //	.byte	0x6C,	0x20	# 0x2E -> 66 MHZ, 0x20 -> 100 MHZ, 0x2C -> 133 MHZ
- 
+
+	.byte	0x7a,	0x00	# Delay transaction, experimental
+	.byte	0x7b,	0x00
+
 	/* PCI Interface */
 	.byte	0x80,	0x01	#
 	.byte	0x81,	0xd1	#
