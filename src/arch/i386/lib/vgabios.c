@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: vgabios.c,v 1.11 2004/03/08 16:28:56 rminnich Exp $";
+static char rcsid[] = "$Id: vgabios.c,v 1.12 2004/03/09 00:07:12 rminnich Exp $";
 #endif
 
 #include <pci.h>
@@ -63,7 +63,7 @@ static char rcsid[] = "$Id: vgabios.c,v 1.11 2004/03/08 16:28:56 rminnich Exp $"
  *  negligence or otherwise) arising in any way out of the use of this
  *  software, even if advised of the possibility of such damage.
  *
- *  $Id: vgabios.c,v 1.11 2004/03/08 16:28:56 rminnich Exp $
+ *  $Id: vgabios.c,v 1.12 2004/03/09 00:07:12 rminnich Exp $
  *--------------------------------------------------------------------*/
 #if (CONFIG_VGABIOS == 1)
 
@@ -139,8 +139,8 @@ __asm__ (
 "	orl	$0x0000001, %eax\n" /* PE = 1 */
 "	movl	%eax, %cr0\n"
 /* Now that we are in protected mode jump to a 32 bit code segment. */
-"	ljmpl	$0x10, $1f\n"
-"1:\n"
+"	ljmpl	$0x10, $vgarestart\n"
+"vgarestart:\n"
 ".code32\n"
 "	movw	$0x18, %ax\n"
 "	movw	%ax, %ds\n"
