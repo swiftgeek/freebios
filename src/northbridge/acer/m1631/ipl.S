@@ -89,6 +89,7 @@ _realstart:
 	movw	%bx, %fs
 	movw	%bx, %gs
 	movw	%bx, %ss
+	xorl	%edi, %edi
 #ifdef USE_BIG_REAL
 	andb	$0xfe, %al
 	movl	%eax, %cr0
@@ -141,28 +142,38 @@ code16
 	movb	$0xfc, %dl
 	movl	$0xf662f83c, %ecx
 	WRITE_MCR0
+	/* check for registered. All this means is write to 0,
+	 * read back, if it's not the same, set 'registered',
+	 * read back, it it's the same you're ok.
+	 */
+	movb	$0xa5, (%edi)
+	cmpb	$0xa5, (%edi)
+	je	nonregistered
+	orb	$0x40, %cl
+	WRITE_MCR0
 	/*
 	movb	$0x6c, %al
 	CALLSP(pci_write_dword)
 	*/
+nonregistered:	 
 	rorl	$16, %ecx
 	/* clear out the CAS, since we assume start at zero
 	 * and increment 
 	 */
 	andb	$0xf0, %cl
 	/* test 8 bit CAS */
-	movb	$0, 0
+	movb	$0, (%edi)
 	movb	$1, 0x800
-	cmpb	$0,0
+	cmpb	$0,(%edi)
 	jnz	sizeram
 	inc	%cl
 	/* change the value we store each time. It makes debugging easier */
 	movb	$2, 0x1000
-	cmpb	$0, 0
+	cmpb	$0, (%edi)
 	jnz	sizeram
 	inc	%cl
 	movb	$3, 0x2000
-	cmpb	$0, 0
+	cmpb	$0, (%edi)
 	jnz	sizeram
 	inc	%cl
 	
@@ -179,7 +190,7 @@ sizeram:
 /* now size the dram */
 /* you had best have at least 4M; that's as small as we go */
 /* rorr 20 the ecx value, to get row size into lsb */
-	movb	$0, 0
+	movb	$0, (%edi)
 	ror	$20, %ecx
 	/* clear the size out to 4 MB */
 	andb	$0xf8, %cl
@@ -194,7 +205,7 @@ sizeram:
 	 */
  	movb	$4, %es:(%esi)
 #endif
-	cmpb	$0, 0
+	cmpb	$0, (%edi)
 	/* if there is not a 0 at 0, the last write wrapped. Hop out */
 	jne	1f
 	inc	%cl
@@ -216,11 +227,11 @@ sizeram:
  * Just set 4-bank mode, and set non-zero numbers into a few places. 
  * if the byte at 0 changes, you have two banks. Trivial.
  */
-	movb	$0, 0
+	movb	$0, (%edi)
 	movb	$5, 0x1000
 	movb	$6, 0x2000
 	movb	$7, 0x4000
-	cmpb	$0, 0
+	cmpb	$0, (%edi)
 	jz	1f /* 4 banks */
 	orl	$0x80000, %ecx
 	/* clear 4 banks */
@@ -275,7 +286,7 @@ sizeram:
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.15 2001/03/15 20:25:30 rminnich Exp $
+ * $Id: ipl.S,v 1.16 2001/03/21 00:46:55 rminnich Exp $
  */
 #define DOC_WIN_SEG		0xfe00
 #define DOC_STACK		0x04000
