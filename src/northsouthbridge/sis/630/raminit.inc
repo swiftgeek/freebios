@@ -26,7 +26,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.4 2000/12/01 08:59:47 ollie Exp $
+ * $Id: raminit.inc,v 1.5 2000/12/04 06:37:06 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -40,12 +40,9 @@ register_setting_start:
 	shrl	$0x01, %ecx
 	
 init_northbridge:
-	movw	(%esi), %ax			# load the register address/value to %ax
+	lodsw	(%esi), %ax			# load the register address/value to %ax
 	xchgb	%al, %ah			# exchange address/values for write_common
 	call	write_northbridge_register
-
-	addl	$0x02, %esi
-	decl	%ecx
 	loopnz	init_northbridge
 
 	jmp	register_setting_end
