@@ -1,5 +1,5 @@
 #ifndef lint
-static char rcsid[] = "$Id: vgabios.c,v 1.10 2003/09/24 16:51:08 rminnich Exp $";
+static char rcsid[] = "$Id: vgabios.c,v 1.11 2004/03/08 16:28:56 rminnich Exp $";
 #endif
 
 #include <pci.h>
@@ -63,7 +63,7 @@ static char rcsid[] = "$Id: vgabios.c,v 1.10 2003/09/24 16:51:08 rminnich Exp $"
  *  negligence or otherwise) arising in any way out of the use of this
  *  software, even if advised of the possibility of such damage.
  *
- *  $Id: vgabios.c,v 1.10 2003/09/24 16:51:08 rminnich Exp $
+ *  $Id: vgabios.c,v 1.11 2004/03/08 16:28:56 rminnich Exp $
  *--------------------------------------------------------------------*/
 #if (CONFIG_VGABIOS == 1)
 
@@ -159,6 +159,13 @@ __asm__ (
 "	ret\n"
 );
 
+#ifdef CONFIG_UNSUPPORTINT_RECOVER
+void unsupportint_recover(void)
+{
+  __asm__ __volatile__ ( "  jmp vgarestart  \n" );
+}
+#endif
+
 void
 do_vgabios(void)
 {
@@ -192,6 +199,9 @@ do_vgabios(void)
   if ((buf[0] == 0x55) && (buf[1] == 0xaa)) {
 
   	memcpy((void *) 0xc0000, buf, size);
+#ifdef VGABIOS_WRITE_PROTECT
+	write_protect_vgabios();
+#endif
 
   	for(i = 0; i < 16; i++)
     		printk_debug("0x%x ", buf[i]);
