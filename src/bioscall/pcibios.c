@@ -1,6 +1,6 @@
 
 #ifndef lint
-static char rcsid[] = "$Id: pcibios.c,v 1.3 2003/05/22 12:59:58 aip Exp $";
+static char rcsid[] = "$Id: pcibios.c,v 1.4 2003/08/05 19:33:34 rminnich Exp $";
 #endif
 
 #include <pci.h>
@@ -50,7 +50,7 @@ pcibios(
 	unsigned short func = (unsigned short) eax;
 	int retval = -1;
 	unsigned short devid, vendorid, devfn;
-	int devindex;
+	short devindex; /* Use short to get rid of gabage in upper half of 32-bit register */
 	unsigned char bus;
 	struct pci_dev *dev;
 
@@ -76,7 +76,8 @@ pcibios(
 			*peax = 0;
 				// busnum is an unsigned char;
 				// devfn is an int, so we mask it off. 
-			busdevfn = dev->bus->secondary | (dev->devfn & 0xff);
+			busdevfn = (dev->bus->secondary << 8)
+					| (dev->devfn & 0xff);
 			printk_debug("0x%x: return 0x%x\n", func, busdevfn);
 			*pebx = busdevfn;
 			retval = 0;
