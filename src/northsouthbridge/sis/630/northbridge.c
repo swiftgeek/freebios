@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: northbridge.c,v 1.2 2000/10/17 03:24:23 rminnich Exp $
+ * $Id: northbridge.c,v 1.3 2000/10/30 09:03:02 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: northbridge.c,v 1.2 2000/10/17 03:24:23 rminnich Exp $";
+"$Id: northbridge.c,v 1.3 2000/10/30 09:03:02 ollie Exp $";
 #endif
 
 
@@ -126,8 +126,9 @@ void framebuffer_on()
 
 void copy_irq_routing_table(void)
 {
-#ifdef SIS630
+#ifdef USE_DOC_MIL
+	/* copy the PCI IRQ table to segment F, not neceressary for 512KB flash case */
 	memcpy((char *) RTABLE_DEST, &intel_irq_routing_table, intel_irq_routing_table.size);
-#endif
+#endif /* USE_DOC_MIL */
 }
 
