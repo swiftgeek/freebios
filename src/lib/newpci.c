@@ -27,6 +27,10 @@
 #define PCI_MEM_START 0x80000000
 #define PCI_IO_START 0x1000
 
+#ifndef lint
+static char rcsid[] = "$Id: newpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $";
+#endif
+
 // historical functions, sometimes very useful. 
 /*
  *    Write the special configuration registers on the INTEL

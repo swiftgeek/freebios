@@ -1,5 +1,5 @@
 /*
- *    $Id: linuxpci.c,v 1.5 2000/11/30 22:06:43 rminnich Exp $
+ *    $Id: linuxpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $
  *
  *      PCI Bus Services, see include/linux/pci.h for further explanation.
  *
@@ -9,10 +9,10 @@
  *      Copyright 1997 -- 1999 Martin Mares <mj@atrey.karlin.mff.cuni.cz>
  */
 
-/* the intent of this file is to easily copy any new pci.c from the 
- * linux source tree, so keep your mods to a minimum, please
- * RGM
- */
+#ifndef lint
+static char rcsid[] = "$Id: linuxpci.c,v 1.6 2000/12/01 01:43:51 ollie Exp $";
+#endif
+
 #include <pci.h>
 #include <pci_ids.h>
 #include <cpu/p5/io.h>

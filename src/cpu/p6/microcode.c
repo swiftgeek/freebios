@@ -1,3 +1,12 @@
+/* microcode.c:	Microcode update for PIII and later CPUS
+ *
+ * $Id: microcode.c,v 1.2 2000/12/01 01:43:51 ollie Exp $
+ */
+
+#ifndef lint
+static char rcsid[] = "$Id: microcode.c,v 1.2 2000/12/01 01:43:51 ollie Exp $";
+#endif
+
 #include <pciconf.h>
 #include <subr.h>
 #include <cpu/p6/msr.h>

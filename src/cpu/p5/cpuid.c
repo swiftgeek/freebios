@@ -1,3 +1,8 @@
+
+#ifndef lint
+static char rcsid[] = "$Id: cpuid.c,v 1.4 2000/12/01 01:43:50 ollie Exp $";
+#endif
+
 #include <pciconf.h>
 #include <subr.h>
 #include <printk.h>

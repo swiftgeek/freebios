@@ -22,8 +22,12 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.5 2000/11/29 09:05:58 ollie Exp $
+ * $Id: mtrr.c,v 1.6 2000/12/01 01:43:51 ollie Exp $
  */
+
+#ifndef lint
+static char rcsid[] = "$Id: mtrr.c,v 1.6 2000/12/01 01:43:51 ollie Exp $";
+#endif
 
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
@@ -134,6 +138,7 @@ void intel_set_var_mtrr(unsigned int reg, unsigned long base, unsigned long size
 		      "wbinvd\n\t"
 		      "movl  %0, %%cr0\n\t"
 		      "wbinvd\n\t":"=r" (tmp)::"memory");
+
 	if (size == 0) {
 		/* The invalid bit is kept in the mask, so we simply clear the
 		   relevant mask register to disable a range. */
@@ -144,7 +149,6 @@ void intel_set_var_mtrr(unsigned int reg, unsigned long base, unsigned long size
 	}
 
 	// turn cache back on. 
-
 	asm volatile ("movl  %%cr0, %0\n\t"
 		      "andl  $0x9fffffff, %0\n\t"
 		      "movl  %0, %%cr0\n\t":"=r" (tmp)::"memory");
