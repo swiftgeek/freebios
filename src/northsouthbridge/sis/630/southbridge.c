@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.21 2001/04/13 04:17:45 ollie Exp $
+ * $Id: southbridge.c,v 1.22 2001/04/19 05:30:38 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.21 2001/04/13 04:17:45 ollie Exp $";
+"$Id: southbridge.c,v 1.22 2001/04/19 05:30:38 ollie Exp $";
 #endif
 
 
@@ -100,14 +100,8 @@ serial_irq_fixedup(void)
 static void
 apc_fixup(void)
 {
-	u8 regval, revision;
-	struct pci_dev *host_bridge, *isa_bridge;
-
-	host_bridge = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_630,
-				      (void *) NULL);
-	if (host_bridge == NULL)
-		return;
-	pci_read_config_byte(host_bridge, PCI_CLASS_REVISION, &revision);
+	u8 regval;
+	struct pci_dev *isa_bridge;
 
 	isa_bridge = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_503,
 				     (void *)NULL);
