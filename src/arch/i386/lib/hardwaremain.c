@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.32 2003/04/21 17:56:09 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.33 2003/10/03 15:48:45 tomzim Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.32 2003/04/21 17:56:09 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.33 2003/10/03 15:48:45 tomzim Exp $";
 #endif
 
 #ifndef MAX_PHYSICAL_CPUS
@@ -162,10 +162,17 @@ static void wait_for_other_cpus(void)
 	}
 	for(i = 0; i < MAX_CPUS; i++) {
 		if (!(processor_map[i] & CPU_ENABLED)) {
-			printk_err("CPU %d/%u did not initialize!\n",
-				i, initial_apicid[i]);
-			processor_map[i] = 0;
-			mainboard_cpu_fixup(i);
+			if(initial_apicid[i] == -1) {
+				printk_err("CPU %d is not installed\n",
+					i);
+				processor_map[i] = 0;
+			}
+			else {
+				printk_err("CPU %d/%u did not initialize!\n",
+					i, initial_apicid[i]);
+				processor_map[i] = 0;
+				mainboard_cpu_fixup(i);
+			}
 		}
 	}
 	printk_debug("All AP CPUs stopped\n");
@@ -237,9 +244,6 @@ void write_tables(struct mem_range *mem)
 
 void hardwaremain(int boot_complete)
 {
-#if CONFIG_ASSIGNIRQ == 1
-  void assignirq(void);
-#endif
 	/* Processor ID of the BOOT cpu (i.e. the one running this code) */
 	unsigned long boot_cpu;
 	int boot_index;
@@ -326,15 +330,15 @@ void hardwaremain(int boot_complete)
 	printk_spew("BOOT CPU is %d\n", boot_cpu);
 	processor_map[boot_index] = CPU_BOOTPROCESSOR|CPU_ENABLED;
 
+	// generic mainboard fixup
+	mainboard_fixup();
+
 	/* Now start the other cpus initializing 
 	 * The sooner they start the sooner they stop.
 	 */
 	post_code(0x75);
 	startup_other_cpus(processor_map);
 	post_code(0x77);
-
-	// generic mainboard fixup
-	mainboard_fixup();
 
 #ifndef MAINBOARD_FIXUP_IN_CHARGE
 
@@ -361,9 +365,6 @@ void hardwaremain(int boot_complete)
 
 	/* to do: intel_serial_on(); */
 	final_mainboard_fixup();
-#if CONFIG_ASSIGNIRQ == 1
-	assignirq();
-#endif
 	post_code(0xec);
 
 
