@@ -24,13 +24,13 @@
  *   can include them in the standard release.
  *
  *
- * $Id: ide.c,v 1.2 2002/05/27 02:15:10 ollie Exp $
+ * $Id: ide.c,v 1.3 2002/07/19 21:06:42 rminnich Exp $
  */
 
 #include <arch/io.h>
 #include <printk.h>
 #include <string.h>
-#include "ide.h"
+#include <pc80/ide.h>
 
 static __inline__ int wait_for_notbusy(unsigned base)
 {
@@ -330,7 +330,7 @@ int ide_read_sector(int drive, void * buffer, unsigned int block, int byte_offse
 	unsigned int track;
 	int status;
 	int address_mode = harddisk_info[drive].address_mode;
-	int i;
+	//int i;
 
 	//printk_debug(__FUNCTION__ " drive[%d], buffer[%08x], block[%08x], offset[%d], n_bytes[%d]\n",
 	//     drive, buffer, block, byte_offset, n_bytes);

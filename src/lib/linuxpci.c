@@ -1,5 +1,5 @@
 /*
- *    $Id: linuxpci.c,v 1.14 2002/07/18 20:30:20 ebiederm Exp $
+ *    $Id: linuxpci.c,v 1.15 2002/07/19 21:06:42 rminnich Exp $
  *
  *      PCI Bus Services, see include/linux/pci.h for further explanation.
  *
@@ -10,7 +10,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: linuxpci.c,v 1.14 2002/07/18 20:30:20 ebiederm Exp $";
+static char rcsid[] = "$Id: linuxpci.c,v 1.15 2002/07/19 21:06:42 rminnich Exp $";
 #endif
 
 #include <stdlib.h>
@@ -23,7 +23,8 @@ static char rcsid[] = "$Id: linuxpci.c,v 1.14 2002/07/18 20:30:20 ebiederm Exp $
 #include <string.h>
 #include <subr.h>
 
-
+// yes we could do Yet Another Include File, but ...
+int sprintf(char * buf, const char *fmt, ...);
 
 /**
  * This is the root of the PCI tree. A PCI tree always has 
@@ -317,7 +318,7 @@ static void pci_bus_read_resources(struct pci_dev *dev)
 static void pci_set_resource(struct pci_dev *dev, struct resource *resource)
 {
 	unsigned long base, limit;
-	unsigned long bridge_align;
+	unsigned long bridge_align = MEM_BRIDGE_ALIGN; // stupid warnings.
 	unsigned char buf[10];
 	
 	/* Make certain the resource has actually been set */
@@ -447,11 +448,13 @@ static void pci_dev_set_resources(struct pci_dev *dev)
 }
 
 
-
+// probably dead.
+#if 0
 static void pci_noop(struct pci_dev *dev)
 {
 	return;
 }
+#endif
 struct pci_dev_operations default_pci_ops_dev = {
 	.read_resources = pci_dev_read_resources,
 	.set_resources = pci_dev_set_resources,
