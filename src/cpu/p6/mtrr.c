@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.17 2001/08/21 02:37:34 ebiederm Exp $
+ * $Id: mtrr.c,v 1.18 2001/10/24 19:13:15 rminnich Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.17 2001/08/21 02:37:34 ebiederm Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.18 2001/10/24 19:13:15 rminnich Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -68,6 +68,47 @@ static unsigned int mtrr_msr[] = {
 #define ROM MTRR_TYPE_RAM
 #endif /* MEMORY_HOLE */
 
+#ifdef MTRR_ONLY_TOP_64K_FLASH
+
+// This is for boards that only support flash in low memory at 0xf0000
+// and above, such as the technoland sbc 710. This type of board
+// is so common that we put it here instead of in the sbc710 mainboard.c
+
+static unsigned char fixed_mtrr_values[][4] = {
+	/* MTRRfix64K_00000_MSR, defines memory range from 0KB to 512 KB, each byte cover 64KB area */
+	{RAM, RAM, RAM, RAM}, {RAM, RAM, RAM, RAM},
+
+	/* MTRRfix16K_80000_MSR, defines memory range from 512KB to 640KB, each byte cover 16KB area */
+	{RAM, RAM, RAM, RAM}, {RAM, RAM, RAM, RAM},
+
+	/* MTRRfix16K_A0000_MSR, defines memory range from A0000 to C0000, each byte cover 16KB area */
+	{FB,  FB,  FB,  FB},  {FB,  FB,  FB,  FB},
+
+	/* MTRRfix4K_C0000_MSR, defines memory range from C0000 to C8000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_C8000_MSR, defines memory range from C8000 to D0000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_D0000_MSR, defines memory range from D0000 to D8000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_D8000_MSR, defines memory range from D8000 to E0000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_E0000_MSR, defines memory range from E0000 to E8000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_E8000_MSR, defines memory range from E8000 to F0000, each byte cover 4KB area */
+	{FB, FB, FB, FB}, {FB, FB, FB, FB},
+
+	/* MTRRfix4K_F0000_MSR, defines memory range from F0000 to F8000, each byte cover 4KB area */
+	{ROM, ROM, ROM, ROM}, {ROM, ROM, ROM, ROM},
+
+	/* MTRRfix4K_F8000_MSR, defines memory range from F8000 to 100000, each byte cover 4KB area */
+	{ROM, ROM, ROM, ROM}, {ROM, ROM, ROM, ROM},
+};
+#else
 static unsigned char fixed_mtrr_values[][4] = {
 	/* MTRRfix64K_00000_MSR, defines memory range from 0KB to 512 KB, each byte cover 64KB area */
 	{RAM, RAM, RAM, RAM}, {RAM, RAM, RAM, RAM},
@@ -102,6 +143,7 @@ static unsigned char fixed_mtrr_values[][4] = {
 	/* MTRRfix4K_F8000_MSR, defines memory range from F8000 to 100000, each byte cover 4KB area */
 	{ROM, ROM, ROM, ROM}, {ROM, ROM, ROM, ROM},
 };
+#endif
 
 #undef FB
 #undef RAM
