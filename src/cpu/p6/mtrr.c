@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.12 2001/01/18 23:11:26 rminnich Exp $
+ * $Id: mtrr.c,v 1.13 2001/01/29 02:12:35 ollie Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.12 2001/01/18 23:11:26 rminnich Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.13 2001/01/29 02:12:35 ollie Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -201,10 +201,10 @@ void intel_set_mtrr(unsigned long rambase, unsigned long ramsizeK)
 	while (ramsizeK != 0 && reg <= 6) {
 		intel_post(0x60 + reg);
 
-		range_wb = 1 << (fms(ramsizeK) + 1);
+		range_wb = 1 << (fms(ramsizeK - 1) + 1);
 		range_uc = range_wb - ramsizeK;
 
-		if ((ramsizeK % range_uc) == 0) {
+		if ((range_uc == 0) || ((ramsizeK % range_uc) == 0)) {
 			DBG("Setting variable MTRR %d, base: %4dMB, range: %4dMB, type: WB\n",
 			    reg, rambase >> 10, range_wb >> 10);
 			intel_set_var_mtrr(reg++, rambase * 1024, range_wb * 1024,
