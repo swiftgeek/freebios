@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.10 2002/05/27 02:15:09 ollie Exp $
+ * $Id: ipl.S,v 1.11 2002/05/27 02:29:08 ollie Exp $
  */
 
 #include "ipl.h"
@@ -264,7 +264,7 @@ write_common:
 	movw	$PCI_DATA_PORT, %dx
 	andb	$0x03, %al
 	addb	%al, %dl
-	movb	%cx, %ax			# Restore %ax
+	movw	%cx, %ax			# Restore %ax
 	outb	%al, %dx
 	RET_SP					# End of write_[lpc|pci]_reg
 
