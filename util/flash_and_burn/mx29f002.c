@@ -22,7 +22,7 @@
  * Reference:
  *	MX29F002/002N data sheet
  *
- * $Id: mx29f002.c,v 1.2 2002/01/29 20:18:00 rminnich Exp $
+ * $Id: mx29f002.c,v 1.3 2002/04/09 23:57:21 rminnich Exp $
  */
 
 #include "flash.h"
@@ -101,7 +101,7 @@ int write_29f002 (struct flashchip * flash, char * buf)
 	*(bios + 0x5555) = 0xAA;
 	*(bios + 0x2AAA) = 0x55;
 	*(bios + 0x5555) = 0xA0;
-	*dst++ = 0x33;
+	*dst++ = *buf++;
 
 	/* wait for Toggle bit ready */
 	toggle_ready_jedec(dst);
