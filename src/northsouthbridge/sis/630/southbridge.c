@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.24 2001/08/08 02:45:10 ebiederm Exp $
+ * $Id: southbridge.c,v 1.25 2001/08/15 21:30:08 ebiederm Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.24 2001/08/08 02:45:10 ebiederm Exp $";
+"$Id: southbridge.c,v 1.25 2001/08/15 21:30:08 ebiederm Exp $";
 #endif
 
 
@@ -16,7 +16,6 @@ static char rcsid[] =
 #include <subr.h>
 #include <pci.h>
 #include <pci_ids.h>
-#include <northsouthbridge/sis/630/param.h>
 #include <cpu/p5/io.h>
 
 void keyboard_on()

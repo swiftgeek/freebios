@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.7 2001/08/09 19:48:31 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.8 2001/08/15 21:30:08 ebiederm Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.7 2001/08/09 19:48:31 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.8 2001/08/15 21:30:08 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
@@ -56,9 +56,7 @@ static char rcsid[] = "$Id: hardwaremain.c,v 1.7 2001/08/09 19:48:31 ebiederm Ex
 #include <arch/pirq_routing.h>
 #include <arch/ioapic.h>
 #include <smp/atomic.h>
-#if defined(SMP)
-#include<arch/smp/mpspec.h>
-#endif
+#include <arch/smp/mpspec.h>
 
 
 static int cpu_initialize(unsigned long totalram)

@@ -1,7 +1,5 @@
-#ifdef HAVE_MP_TABLE
-
 #ifndef lint
-static char rcsid[] = "$Id: mpspec.c,v 1.1 2001/08/07 19:46:36 ebiederm Exp $";
+static char rcsid[] = "$Id: mpspec.c,v 1.2 2001/08/15 21:30:08 ebiederm Exp $";
 #endif
 
 #include <smp/start_stop.h>
@@ -240,4 +238,3 @@ void write_smp_table(void *v)
 }
 #endif /* 0 */
 
-#endif /* HAVE_MP_TABLE */
