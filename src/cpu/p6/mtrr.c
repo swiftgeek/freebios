@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.20 2001/11/13 03:43:35 ebiederm Exp $
+ * $Id: mtrr.c,v 1.21 2001/11/27 19:29:55 ebiederm Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.20 2001/11/13 03:43:35 ebiederm Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.21 2001/11/27 19:29:55 ebiederm Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -207,6 +207,42 @@ static void intel_set_var_mtrr(unsigned int reg, unsigned long base, unsigned lo
 		      "wbinvd\n\t"
 		      "movl  %0, %%cr0\n\t"
 		      "wbinvd\n\t":"=r" (tmp)::"memory");
+
+	if (size == 0) {
+		/* The invalid bit is kept in the mask, so we simply clear the
+		   relevant mask register to disable a range. */
+		wrmsr (MTRRphysMask_MSR (reg), 0, 0);
+	} else {
+		/* Bit 32-35 of MTRRphysMask should be set to 1 */
+		wrmsr (MTRRphysBase_MSR (reg), base | type, 0);
+		wrmsr (MTRRphysMask_MSR (reg), ~(size - 1) | 0x800, 0x0F);
+	}
+
+	// turn cache back on. 
+	asm volatile ("movl  %%cr0, %0\n\t"
+		      "andl  $0x9fffffff, %0\n\t"
+		      "movl  %0, %%cr0\n\t":"=r" (tmp)::"memory");
+
+}
+
+/* setting variable mtrr, comes from linux kernel source */
+void set_var_mtrr(unsigned int reg, unsigned long base, unsigned long size, unsigned char type)
+{
+	unsigned int tmp;
+
+	if (reg >= 8)
+		return;
+
+	// it is recommended that we disable and enable cache when we 
+	// do this. 
+	/* Disable cache */
+	/* Write back the cache and flush TLB */
+	asm volatile (
+		"movl  %%cr0, %0\n\t"
+		"orl  $0x40000000, %0\n\t"
+		"movl  %0, %%cr0\n\t"
+		:"=r" (tmp)
+		::"memory");
 
 	if (size == 0) {
 		/* The invalid bit is kept in the mask, so we simply clear the

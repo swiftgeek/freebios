@@ -6,7 +6,7 @@
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: printk.c,v 1.6 2001/11/03 02:11:48 ebiederm Exp $";
+static char rcsid[] = "$Id: printk.c,v 1.7 2001/11/27 19:29:56 ebiederm Exp $";
 #endif
 
 //typedef void * va_list;
@@ -14,16 +14,13 @@ static char rcsid[] = "$Id: printk.c,v 1.6 2001/11/03 02:11:48 ebiederm Exp $";
 #include <stdarg.h>
 #include <subr.h>
 #include <smp/spinlock.h>
+#include <printk.h>
 
 /* printk's without a loglevel use this.. */
 #define DEFAULT_MESSAGE_LOGLEVEL 4 /* BIOS_WARNING */
 
 /* We show everything that is MORE important than this.. */
 #define MINIMUM_CONSOLE_LOGLEVEL 1 /* Minimum loglevel we let people use */
-
-#ifndef DEFAULT_CONSOLE_LOGLEVEL
-#define DEFAULT_CONSOLE_LOGLEVEL 8 /* anything MORE serious than BIOS_SPEW */
-#endif
 
 /* Keep together for sysctl support */
 
