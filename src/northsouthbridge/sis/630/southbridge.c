@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.22 2001/04/19 05:30:38 ollie Exp $
+ * $Id: southbridge.c,v 1.23 2001/07/19 03:10:50 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.22 2001/04/19 05:30:38 ollie Exp $";
+"$Id: southbridge.c,v 1.23 2001/07/19 03:10:50 ollie Exp $";
 #endif
 
 
@@ -131,7 +131,6 @@ apc_fixup(void)
 		outb(0x02, 0x70);
 		regval = inb(0x71);
 		outb(regval | 0x40, 0x71);
-
 
 		/* Enable ACPI S3,S5 */
 		outb(0x04, 0x70);
