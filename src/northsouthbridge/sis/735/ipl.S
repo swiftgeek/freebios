@@ -25,14 +25,14 @@
  *	3. IBM Application Note, DDR SDRAM Module Serial Presence Detect Definitions
  *	4. JEDEC Standard, DDR SDRAM Speccification, JESD79, June 2000
  *
- * $Id: ipl.S,v 1.1 2002/05/24 01:41:42 ollie Exp $
+ * $Id: ipl.S,v 1.2 2002/05/24 01:54:11 ollie Exp $
  */
 
 #include "ipl.h"
 
 .code16
 
-//#define SPD_SIZING
+#define SPD_SIZING
 #define SIZE_ALL
 #define REALLY_COMPACT
 
