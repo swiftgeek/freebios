@@ -25,7 +25,7 @@
  *	3. IBM Application Note, DDR SDRAM Module Serial Presence Detect Definitions
  *	4. JEDEC Standard, DDR SDRAM Speccification, JESD79, June 2000
  *
- * $Id: ipl.S,v 1.1 2002/05/24 01:41:42 ollie Exp $
+ * $Id: ipl.S,v 1.2 2002/05/26 09:21:39 ollie Exp $
  */
 
 #include "ipl.h"
@@ -454,7 +454,7 @@ smbus_init_table:
 	.word	0x0000	/* Null, End of table */
 
 ddr_init_table:
-	.byte	PALL				# Percharge All
+	.byte	PALL				# Precharge All
 	.byte	DLL_EN_N			# DLL Enable Normal
 	.byte	DLL_RESET			# DLL Reset
 	.byte	PALL				# Precharge All
