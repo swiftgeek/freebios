@@ -22,7 +22,7 @@
  * Reference:
  *	1. SiS 635 Programming Giude, Rev. 1.0, Mar. 29, 2001
  *
- * $Id: 635_regs.inc,v 1.1 2002/05/24 01:41:41 ollie Exp $
+ * $Id: 635_regs.inc,v 1.2 2002/05/27 02:15:09 ollie Exp $
  */
 
 northbridge_init_table:
@@ -61,6 +61,12 @@ northbridge_init_table:
 	.word	0x8820
 	.word	0x8904
 	.word	0x8b04
+
+	/* AGP GART */
+	.word	0x9440
+	.word	0x9501
+	.word	0x9701
+	.word	0x9800
 
 	/* IO Buffer */
 	.word	0x9b42

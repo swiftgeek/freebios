@@ -24,7 +24,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 630_regs.inc,v 1.6 2001/07/27 05:59:50 ollie Exp $
+ * $Id: 630_regs.inc,v 1.7 2002/05/27 02:15:09 ollie Exp $
  */
 
 northbridge_init_table:
@@ -94,7 +94,7 @@ northbridge_init_table:
 	.byte	0x94,	0x40	# Graphic Window Size == 64MB
 	.byte	0x97,	0x01	# Page Table Cache Enable
 	.byte	0x98,	0x00	#
-	.byte	0x9C,	0x02	# CPU to VGA MEM Posted Write
+	.byte	0x9C,	0x02	# Integrated VGA Enable
 
 	/* DRAM Priority Timer Control Register */
 	.byte	0xA0,	0x00

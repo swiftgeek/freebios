@@ -22,11 +22,11 @@
  *
  *
  * Reference:
- *	1. SiS 730S Specification
+ *	1. SiS 730S Data Sheet, Rev. 1.0, Oct. 31, 2000
  *	2. SiS 730S Register Recommended Setting
  *	   Rev 1.0, Oct. 4, 2000
  *
- * $Id: raminit.inc,v 1.3 2001/11/06 04:32:05 ollie Exp $
+ * $Id: raminit.inc,v 1.4 2002/05/27 02:15:09 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8

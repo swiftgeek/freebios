@@ -22,7 +22,7 @@
  * Reference:
  *	1. SiS 735 Programming Guide, Rev. 1.0, Apr. 16, 2001
  *
- * $Id: 735_regs.inc,v 1.1 2002/05/24 01:41:42 ollie Exp $
+ * $Id: 735_regs.inc,v 1.2 2002/05/27 02:15:10 ollie Exp $
  */
 
 northbridge_init_table:
@@ -60,6 +60,12 @@ northbridge_init_table:
 	.word	0x8820
 	.word	0x890c
 	.word	0x8b04
+
+	/* AGP GART */
+	.word	0x9440
+	.word	0x9501
+	.word	0x9701
+	.word	0x9800
 
 	/* IO Buffer */
 	.word	0x9b40
