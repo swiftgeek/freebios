@@ -22,11 +22,12 @@
  * Reference:
  *	4 MEgabit (512K x 8) SuperFlash EEPROM, SST28SF040 data sheet
  *
- * $Id: sst39sf020.c,v 1.4 2003/02/28 17:21:37 rminnich Exp $
+ * $Id: sst39sf020.c,v 1.5 2003/03/28 03:29:43 rminnich Exp $
  */
 
 #include "flash.h"
 #include "jedec.h"
+#include <stdio.h>
 
 #define AUTO_PG_ERASE1		0x20
 #define AUTO_PG_ERASE2		0xD0
@@ -160,7 +161,7 @@ int erase_39sf020 (struct flashchip * flash)
         Temp  = bios + 0x5555; /* set up address to be C000:5555h      */
         *Temp = 0x10;       /* write data 0x55 to the address       */
 
-	myusec_delay(20000);
+	myusec_delay(50000);
 }
 
 int write_39sf020 (struct flashchip * flash, char * buf)
@@ -181,6 +182,7 @@ int write_39sf020 (struct flashchip * flash, char * buf)
 		write_sector_39sf020(bios, buf + i * page_size, bios + i * page_size,
 				     page_size);
 		printf ("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+                fflush(stdout);
 	}
 	printf("\n");
 
