@@ -24,7 +24,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 630_regs.inc,v 1.4 2001/01/17 08:18:38 ollie Exp $
+ * $Id: 630_regs.inc,v 1.5 2001/01/19 00:11:45 rminnich Exp $
  */
 
 northbridge_init_table:
@@ -39,7 +39,11 @@ northbridge_init_table:
 	/* SiS 630 specific registers. See SiS 630 Registers Recommended Setting */
 	
 	/* Host Control Interface */
+#ifdef ENABLE_SIS630_CPU_PIPELINE
 	.byte	0x50,	0x9E	#
+#else
+	.byte	0x50,	0x9C	#
+#endif
 	.byte	0x51,	0x00	#
 
 	/* DRAM Control */
