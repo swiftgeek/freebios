@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.21 2001/11/27 19:29:55 ebiederm Exp $
+ * $Id: mtrr.c,v 1.22 2002/04/10 16:01:36 rminnich Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.21 2001/11/27 19:29:55 ebiederm Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.22 2002/04/10 16:01:36 rminnich Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -341,6 +341,7 @@ void setup_mtrrs(unsigned long ramsizeK)
 			ramsizeK -= range_wb;
 		}
 	}
+	printk_debug("DONE variable MTRRs\n");
 #if defined(XIP_ROM_SIZE) && defined(XIP_ROM_BASE)
 #if XIP_ROM_SIZE < 4096
 #error XIP_ROM_SIZE must be at least 4K
@@ -361,13 +362,18 @@ void setup_mtrrs(unsigned long ramsizeK)
 			MTRR_TYPE_WRPROT);
 	}
 #endif /* XIP_ROM_SIZE && XIP_ROM_BASE */
+	printk_debug("Clear out the extra MTRR's\n");
 	/* Clear out the extra MTRR's */
 	while(reg < MTRRS) {
 		intel_set_var_mtrr(reg++, 0, 0, 0);
 	}
+	printk_debug("call intel_set_fixed_mtrr()\n");
 	intel_set_fixed_mtrr();
 
 	/* enable fixed MTRR */
+	printk_debug("call intel_enable_fixed_mtrr()\n");
 	intel_enable_fixed_mtrr();
+	printk_debug("call intel_enable_var_mtrr()\n");
 	intel_enable_var_mtrr();
+	printk_debug("Leave " __FUNCTION__ "\n");
 }
