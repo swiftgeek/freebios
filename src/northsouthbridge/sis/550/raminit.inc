@@ -26,7 +26,7 @@
  *	2. SiS 550A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: raminit.inc,v 1.4 2002/05/27 02:15:09 ollie Exp $
+ * $Id: raminit.inc,v 1.5 2002/07/22 03:08:25 ollie Exp $
  */
 
 #define PCI_COMMAND_PORT	0xcf8
@@ -66,7 +66,7 @@ write_common:
 	loopnz	init_northbridge
 
 #ifdef DISABLE_INTERNAL_DEVICES
-	movw	$0x7c07, %ax			# Writting undocumented LPC register
+	movw	$0x7c02, %ax			# Writting undocumented LPC register
 write_lpc_register:
 	/* Input: AH - register number. AL - register value. */
 	movl	$LPC_BRIDGE_BASE_ADDR, %edx
