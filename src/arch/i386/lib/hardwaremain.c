@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.3 2001/04/11 21:38:43 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.4 2001/04/25 03:17:47 ollie Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.3 2001/04/11 21:38:43 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.4 2001/04/25 03:17:47 ollie Exp $";
 #endif
 
 #include <cpu/p5/io.h>
@@ -142,9 +142,11 @@ void intel_main()
 	post_code(0x90);
 	printk(KERN_INFO "done.\n");
 
+#ifdef IOAPIC
 	/* set up the IO-APIC for the clock interrupt. */
 	post_code(0x92);
 	setup_ioapic();
+#endif /* IOAPIC */
 
 	// generic mainboard fixup
 	mainboard_fixup();
