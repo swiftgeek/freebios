@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.28 2001/12/03 02:18:11 ollie Exp $
+ * $Id: southbridge.c,v 1.29 2001/12/09 17:19:24 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.28 2001/12/03 02:18:11 ollie Exp $";
+"$Id: southbridge.c,v 1.29 2001/12/09 17:19:24 rminnich Exp $";
 #endif
 
 
@@ -72,7 +72,7 @@ static const initreg_t ide_init[] = {
 
 void ide_fixup(void)
 {
-	volatile int delay;
+
 	struct pci_dev *dev  = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_5513,
 					       (void *) NULL); 
 	int i;
