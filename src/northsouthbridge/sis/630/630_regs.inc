@@ -24,7 +24,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 630_regs.inc,v 1.5 2001/01/19 00:11:45 rminnich Exp $
+ * $Id: 630_regs.inc,v 1.6 2001/07/27 05:59:50 ollie Exp $
  */
 
 northbridge_init_table:
@@ -42,6 +42,8 @@ northbridge_init_table:
 #ifdef ENABLE_SIS630_CPU_PIPELINE
 	.byte	0x50,	0x9E	#
 #else
+	/* CPU Pipeline should be disable if on Coppermine CPU
+	 * or more than 1 Bus Master LAN */	
 	.byte	0x50,	0x9C	#
 #endif
 	.byte	0x51,	0x00	#
