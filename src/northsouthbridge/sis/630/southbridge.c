@@ -1,21 +1,22 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.1 2000/10/16 23:59:01 rminnich Exp $
+ * $Id: southbridge.c,v 1.2 2000/10/17 03:24:23 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.1 2000/10/16 23:59:01 rminnich Exp $";
+"$Id: southbridge.c,v 1.2 2000/10/17 03:24:23 rminnich Exp $";
 #endif
 
 
 #include <printk.h>
-#include <intel_conf.h>
-#include <intel_subr.h>
-#include <lbpci.h>
-#include <sis630.h>
+#include <pciconf.h>
+#include <subr.h>
+#include <pci.h>
+#include <pci_ids.h>
+#include <northsouthbridge/sis/630/param.h>
 
 void keyboard_on()
 {
