@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.31 2002/06/05 09:09:37 ollie Exp $
+ * $Id: southbridge.c,v 1.32 2002/12/16 17:57:48 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.31 2002/06/05 09:09:37 ollie Exp $";
+"$Id: southbridge.c,v 1.32 2002/12/16 17:57:48 rminnich Exp $";
 #endif
 
 
@@ -28,6 +28,8 @@ static char rcsid[] =
 #define IDE_REG_CONTROL(base)  ((base) + IDE_REG_EXTENDED_OFFSET + 6u)
 #define IDE_BASE1  (0x1F0u)  /* primary controller */
 #define ASIZE(x) (sizeof(x)/sizeof((x)[0]))
+
+extern int video_init(void);
 
 typedef struct {
 	u8 size;
@@ -369,6 +371,10 @@ final_southbridge_fixup()
 	serial_irq_fixedup();
 	acpi_fixup();
 	ide_fixup();
-
-	printk_debug("Southbridge fixup done for SIS 503\n");
+#ifdef VIDEO_CONSOLE
+	// this has to be done here due to pci not being up
+	// earlier and pci resources are not ready
+	video_init();
+#endif
+	printk_debug("Southbridge fixup done for SIS 603\n");
 }

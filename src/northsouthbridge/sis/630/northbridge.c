@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: northbridge.c,v 1.10 2002/07/02 07:13:11 ebiederm Exp $
+ * $Id: northbridge.c,v 1.11 2002/12/16 17:57:48 rminnich Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: northbridge.c,v 1.10 2002/07/02 07:13:11 ebiederm Exp $";
+"$Id: northbridge.c,v 1.11 2002/12/16 17:57:48 rminnich Exp $";
 #endif
 
 
@@ -107,7 +107,7 @@ struct mem_range *sizeram(void)
 		mem[1].sizek = 64*1024;
 	}
 	mem[1].sizek -= mem[1].basek;
-	return &mem;
+	return &mem[0];
 }
 
 
@@ -118,7 +118,7 @@ void framebuffer_on()
 	u16 command;
 
 	if ((pcidev = pci_find_device(PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_5591_AGP, NULL)) == NULL)
-		return 0;
+		return;
 
 	pci_read_config_word(pcidev, 0x04, &command);
 	command |= 0x20;

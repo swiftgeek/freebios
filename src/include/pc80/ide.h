@@ -28,7 +28,7 @@
  *   Anyone making changes to this code please send them to us so we 
  *   can include them in the standard release.
  *
- *  $Id: ide.h,v 1.2 2002/11/11 21:30:01 pyro9 Exp $
+ *  $Id: ide.h,v 1.3 2002/12/16 17:57:45 rminnich Exp $
  *
  */
 #if !defined(IDE_H_INCLUDE)
@@ -47,7 +47,7 @@ typedef struct {
     unsigned char drive_exists;
 } harddisk_info_t;
 
-#define NUM_HD (2)
+#define NUM_HD (4)
 
 extern harddisk_info_t harddisk_info[NUM_HD];
 
