@@ -23,22 +23,22 @@
  	.text
 	.code16
 
-#include "intel_start32.S"
+#include <cpu/p5/start32.inc>
 
 /* turn on serial */
-#include "VIA_VT82C686A.S"
+#include <southbridge/via/vt82c686/setup_serial.inc>
 
-#include "serial.S"
+#include <pc80/serial.inc>
 
 	TTYS0_TX_STRING($ttyS0_test)
 	
 	/* initialize the RAM */
 	/* different for each motherboard */
 	
-#include "intel_pm133ram.S"
+#include <northbridge/via/vt8601/raminit.inc>
 
 #ifdef RAMTEST
-#include "ramtest.S"
+#include <ram/ramtest.inc>
 
 #include <cpu/p6/earlymtrr.inc>
 	mov $0x00000000, %eax
