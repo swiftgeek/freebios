@@ -1,4 +1,4 @@
-/* $Id: hardwaremain.c,v 1.1 2003/04/24 03:24:56 jarrah Exp $ */
+/* $Id: hardwaremain.c,v 1.2 2003/04/24 03:39:49 jarrah Exp $ */
 /* Copyright 2000  AG Electronics Ltd. */
 /* This code is distributed without warranty under the GPL v2 (see COPYING) */
 
@@ -11,6 +11,7 @@
 #include <version.h>
 #include <part/hard_reset.h>
 #include <boot/elf.h>
+#include <boot/linuxbios_table.h>
 #include <rom/read_bytes.h>
 #include <northbridge/motorola/mpc107/epic.h>
 #include "nvram.h"
