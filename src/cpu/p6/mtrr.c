@@ -22,11 +22,11 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.9 2000/12/06 11:02:35 ollie Exp $
+ * $Id: mtrr.c,v 1.10 2000/12/07 01:43:28 ollie Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.9 2000/12/06 11:02:35 ollie Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.10 2000/12/07 01:43:28 ollie Exp $";
 #endif
 
 #include <cpu/p6/msr.h>
@@ -174,15 +174,15 @@ static __inline__ int fms(int x)
  *	2. The base address must be 2^N aligned, where the N here is equal to the N in previous
  *	   requirement. So a 8K range must be 8K aligned not 4K aligned.
  *
- * These requirement is meet by "decompositing" the ramsize into Sum(Cn * 2^n, n == [0..N], Cn = [0, 1]).
- * For Cm = 1, there is a WB range of 2^m size at base address Sum(Cm * 2^m, m == [N..n]).
+ * These requirement is meet by "decompositing" the ramsize into Sum(Cn * 2^n, n = [0..N], Cn = [0, 1]).
+ * For Cm = 1, there is a WB range of 2^m size at base address Sum(Cm * 2^m, m = [N..n]).
  * A 124MB (128MB - 4MB SMA) example:
  * 	ramsize = 124MB == 64MB (at 0MB) + 32MB (at 64MB) + 16MB (at 96MB ) + 8MB (at 112MB) + 4MB (120MB).
  * But this wastes a lot of MTRR registers so we use another more "aggresive" way with Uncacheable Regions.
  *
- * In the Uncacheable Resion scheme, we try to cover the whole ramsize by one WB region as possible,
+ * In the Uncacheable Region scheme, we try to cover the whole ramsize by one WB region as possible,
  * If (an only if) this can not be done we will try to decomposite the ramesize, the mathematical formula
- * whould be ramsize = Sum(Cn * 2^n, n == [0..N], Cn = [-1, 0, 1]). For Cn = -1, a Uncachable Region is used.
+ * whould be ramsize = Sum(Cn * 2^n, n = [0..N], Cn = [-1, 0, 1]). For Cn = -1, a Uncachable Region is used.
  * The same 124MB example:
  * 	ramsize = 124MB == 128MB WB (at 0MB) + 4MB UC (at 124MB)
  * or a 156MB (128MB + 32MB - 4MB SMA) example:
