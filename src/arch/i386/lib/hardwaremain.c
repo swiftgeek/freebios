@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.21 2002/04/08 17:13:26 rminnich Exp $
+ * $Id: hardwaremain.c,v 1.22 2002/05/25 05:50:55 ollie Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.21 2002/04/08 17:13:26 rminnich Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.22 2002/05/25 05:50:55 ollie Exp $";
 #endif
 
 #include <arch/io.h>
@@ -139,14 +139,15 @@ static void wait_for_other_cpus(void)
 	int i;
 	old_active_count = 1;
 	active_count = atomic_read(&active_cpus);
-	while(active_count > 1) {
+
+	while (active_count > 1) {
 		if (active_count != old_active_count) {
 			printk_info("Waiting for %d CPUS to stop\n", active_count);
 			old_active_count = active_count;
 		}
 		active_count = atomic_read(&active_cpus);
 	}
-	for(i = 0; i < MAX_CPUS; i++) {
+	for (i = 0; i < MAX_CPUS; i++) {
 		if (!(processor_map[i] & CPU_ENABLED)) {
 			printk_err("CPU %d/%u did not initialize!\n",
 				i, initial_apicid);
@@ -186,10 +187,9 @@ void write_tables(unsigned long totalram)
 		low_table_end = 0x500;
 	}
 	/* The linuxbios table must be in 0-4K or 960K-1M */
-	write_linuxbios_table(
-		processor_map, totalram,
-		low_table_start, low_table_end,
-		rom_table_start, rom_table_end);
+	write_linuxbios_table(processor_map, totalram,
+			      low_table_start, low_table_end,
+			      rom_table_start, rom_table_end);
 }
 
 void hardwaremain(int boot_complete)
@@ -228,7 +228,7 @@ void hardwaremain(int boot_complete)
 	
 	post_code(0x39);
 
-	printk_notice("LinuxBIOS %s...\n", (boot_complete)?"rebooting":"booting");
+	printk_notice("LinuxBIOS %s...\n", (boot_complete) ? "rebooting" : "booting");
 
 	post_code(0x40);
 
