@@ -1,13 +1,13 @@
 
 /*
  * Bootstrap code for the INTEL 
- * $Id: southbridge.c,v 1.12 2002/07/22 03:08:25 ollie Exp $
+ * $Id: southbridge.c,v 1.13 2002/08/01 07:44:08 ollie Exp $
  *
  */
 
 #ifndef lint
 static char rcsid[] =
-"$Id: southbridge.c,v 1.12 2002/07/22 03:08:25 ollie Exp $";
+"$Id: southbridge.c,v 1.13 2002/08/01 07:44:08 ollie Exp $";
 #endif
 
 
@@ -140,8 +140,8 @@ void nvram_on()
 		/* Enable FFF80000 to FFFFFFFF decode. You have to also enable
 		   PCI Posted write for devices on sourthbridge */
 		pci_write_config_byte(pcidev, 0x40, 0x33);
-		/* Enable USB device in undocumented Bit 5 */
-		pci_write_config_byte(pcidev, 0x45, 0x20);
+		/* Enable flash write in bit 6 and USB device in undocumented Bit 5 */
+		pci_write_config_byte(pcidev, 0x45, 0x60);
 	}
 
 	/* turn off nvram shadow in 0xc0000 ~ 0xfffff, i.e. accessing segment C - F
