@@ -23,13 +23,13 @@ it with the version available from LANL.
 
 /*
  * C Bootstrap code for the INTEL 
- * $Id: hardwaremain.c,v 1.13 2002/01/08 07:04:35 ebiederm Exp $
+ * $Id: hardwaremain.c,v 1.14 2002/01/29 20:28:23 ebiederm Exp $
  *
  */
 
 #define LINUXBIOS
 #ifndef lint
-static char rcsid[] = "$Id: hardwaremain.c,v 1.13 2002/01/08 07:04:35 ebiederm Exp $";
+static char rcsid[] = "$Id: hardwaremain.c,v 1.14 2002/01/29 20:28:23 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
@@ -181,7 +181,11 @@ void write_tables(unsigned long totalram)
 	/* The smp table must be in 0-1K, 639K-640K, or 960K-1M */
 	low_table_end = write_smp_table(low_table_end, processor_map);
 
-	/* The linuxbios table must be in 0-1K or 960K-1M */
+	/* Don't write anything in the traditional x86 BIOS data segment */
+	if (low_table_end < 0x500) {
+		low_table_end = 0x500;
+	}
+	/* The linuxbios table must be in 0-4K or 960K-1M */
 	write_linuxbios_table(
 		processor_map, totalram,
 		low_table_start, low_table_end,
