@@ -21,7 +21,7 @@
  *
  * Reference:
  *	AMD Am29F040B data sheet
- * $Id: am29f040b.c,v 1.5 2003/11/05 16:36:12 rminnich Exp $
+ * $Id: am29f040b.c,v 1.6 2004/03/08 15:22:30 rminnich Exp $
  */
 
 #include <stdio.h>
@@ -92,7 +92,7 @@ int probe_29f040b (struct flashchip * flash)
 
 int erase_29f040b (struct flashchip * flash)
 {
-	volatile char * bios = flash->virt_addr;
+	volatile unsigned char * bios = flash->virt_addr;
 
 	*(bios + 0x555) = 0xAA;
 	*(bios + 0x2AA) = 0x55;
