@@ -22,13 +22,13 @@
  *
  * Reference: Intel Architecture Software Developer's Manual, Volume 3: System Programming
  *
- * $Id: mtrr.c,v 1.11 2001/01/04 07:50:56 ollie Exp $
+ * $Id: mtrr.c,v 1.12 2001/01/18 23:11:26 rminnich Exp $
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: mtrr.c,v 1.11 2001/01/04 07:50:56 ollie Exp $";
+static char rcsid[] = "$Id: mtrr.c,v 1.12 2001/01/18 23:11:26 rminnich Exp $";
 #endif
-#define DEBUG
+
 #include <cpu/p6/msr.h>
 #include <cpu/p6/mtrr.h>
 #include <printk.h>
