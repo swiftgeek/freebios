@@ -18,6 +18,10 @@
  * set the right value. 
  */
 #define INIT_MCR $0xf6621000
+#undef INIT_MCR
+/* I think that f662 is wrong. We need to make it 0xf6601000 */
+#define INIT_MCR $0xf6021000
+
 #define WRITE_MCR0 movl %ecx, %eax ;  outl %eax, %dx
 /*#include <cpu/p5/start32.inc>*/
 .org 0xfe000
@@ -229,7 +233,7 @@ sizeram:
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.10 2000/12/19 05:51:50 rminnich Exp $
+ * $Id: ipl.S,v 1.11 2001/02/14 05:19:27 rminnich Exp $
  */
 #define DOC_WIN_SEG		0xfe00
 #define DOC_STACK		0x04000
