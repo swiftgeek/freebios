@@ -1,11 +1,11 @@
 /*
  * Bootstrap code for the INTEL 
- * $Id: subr.c,v 1.20 2002/06/20 00:11:55 ebiederm Exp $
+ * $Id: subr.c,v 1.21 2002/10/10 19:46:47 ebiederm Exp $
  *
  */
 
 #ifndef lint
-static char rcsid[] = "$Id: subr.c,v 1.20 2002/06/20 00:11:55 ebiederm Exp $";
+static char rcsid[] = "$Id: subr.c,v 1.21 2002/10/10 19:46:47 ebiederm Exp $";
 #endif
 
 #include <arch/io.h>
@@ -89,7 +89,7 @@ void error(char errmsg[])
  */
 void post_code(uint8_t value)
 {
-#ifdef SERIAL_POST
+#if SERIAL_POST
 	unsigned long hi, lo;
 	// DAMMIT! This just broke!
 	//rdtsc(lo, hi);
