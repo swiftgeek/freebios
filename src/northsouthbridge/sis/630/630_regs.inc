@@ -24,7 +24,7 @@
  *	2. SiS 630A1 Register Recommended Setting
  *	   Rev 0.97, Jan 7, 2000
  *
- * $Id: 630_regs.inc,v 1.2 2000/11/30 03:46:37 ollie Exp $
+ * $Id: 630_regs.inc,v 1.3 2000/12/22 02:42:55 ollie Exp $
  */
 
 northbridge_init_table:
@@ -90,7 +90,7 @@ northbridge_init_table:
 	.byte	0x98,	0x00	#
 	.byte	0x9C,	0x02	# CPU to VGA MEM Posted Write
 
-	/* DRAM Priority Timer Control REgister */
+	/* DRAM Priority Timer Control Register */
 	.byte	0xA0,	0x00
 	.byte	0xA1,	0x00
 	.byte	0xA2,	0x03
@@ -99,7 +99,5 @@ northbridge_init_table:
 	/* AGP Command Register */
 	.byte	0xC8,	0x04	# AGP 4X
 	.byte	0xC9,	0x00	# AGP Disabled
-	.byte	0xCA,	0x00
-	.byte	0xCB,	0x00
 
 northbridge_init_table_end:
