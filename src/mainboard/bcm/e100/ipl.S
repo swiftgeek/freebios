@@ -26,7 +26,7 @@
  *	4. Booting From the DiskOnChip Millennium, M-Systems Application Note Ap-DOC-044
  *	   APR-2000, 93-SR-001-44-7L REV. 1.0
  *
- * $Id: ipl.S,v 1.3 2002/07/22 03:08:24 ollie Exp $
+ * $Id: ipl.S,v 1.4 2002/08/01 07:48:53 ollie Exp $
  */
 
 #include "ipl.h"
@@ -58,7 +58,7 @@ lpc_init_start:					# inits LPC bridge for accessing
 
 lpc_init_complete:	
 
-
+#if 0
 SET_VGA_SR13:
        movw $0x03c4,%dx           #SR5
        movb $0x05,%al
@@ -373,7 +373,7 @@ Clock_Gen_Exit:
 
 
 
-
+#endif
 	movw	$0x5501, %ax			# MDOE# enable, this bit
 	CALL_SP(write_pci_register)		# should be set before sizing.
 
